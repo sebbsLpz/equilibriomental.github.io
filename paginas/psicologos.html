@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestros Psicólogos - Equilibrio Mental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --background-color: #F0F4F8;
+            --text-color: #2C3E50;
+            --gray-color: #6c757d;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+            background-color: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .profile-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .profile-link svg {
+            margin-right: 0.5rem;
+        }
+
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--gray-color);
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .filters input,
+        .filters select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        .filters input::placeholder {
+            color: var(--white);
+        }
+
+        .filters select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 0.7rem top 50%;
+            background-size: 0.65rem auto;
+            padding-right: 2rem;
+        }
+
+        .psychologist-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .psychologist-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .psychologist-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .psychologist-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .psychologist-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .psychologist-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .psychologist-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .star {
+            color: #FFD700;
+            margin-right: 0.25rem;
+            cursor: pointer;
+        }
+
+        .psychologist-bio {
+            margin-bottom: 1rem;
+            color: var(--gray-color);
+        }
+
+        .problems-treated {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .problem-tag {
+            background-color: rgba(74, 144, 226, 0.1);
+            color: var(--primary-color);
+            padding: 0.25rem 0.5rem;
+            border-radius: 16px;
+            font-size: 0.875rem;
+        }
+
+        .view-profile-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: calc(100% - 2rem);
+            height: 44px;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            margin: auto auto 1rem auto;
+        }
+
+        .view-profile-btn:hover {
+            background-color: #3a7bc8;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 800px;
+            position: relative;
+            width: 90%;
+        }
+
+        .close {
+            color: var(--gray-color);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: var(--text-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .modal-header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        .modal-body h3 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .modal-footer {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .modal-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .book-btn:hover {
+            background-color: #3a7bc8;
+        }
+
+        .chat-btn {
+            background-color: var(--white);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .chat-btn:hover {
+            background-color: rgba(74, 144, 226, 0.1);
+        }
+
+        .see-more-btn {
+            display: block;
+            width: 200px;
+            margin: 2rem auto;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .see-more-btn:hover {
+            background-color: #3a7bc8;
+        }
+
+        footer {
+            background-color: var(--text-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .psychologist-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--white);
+                padding: 1rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                margin: 20% auto;
+                padding: 1rem;
+            }
+
+            .modal-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .psychologist-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="../index.html" class="logo">Equilibrio Mental</a>
+            <div class="nav-links">
+                <a href="paginas/psicologos.html">Psicólogos</a>
+                <a href="citas.html">Citas</a>
+                <a href="#pruebas">Pruebas</a>
+                <a href="#educacion">Educación</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+            <a href="#perfil" class="profile-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+                Tu Perfil
+            </a>
+            <button class="menu-button" aria-label="Menú">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Nuestros Psicólogos</h1>
+        <p class="intro">Elegir el psicólogo adecuado es crucial para tu bienestar mental. Nuestros profesionales están aquí para ayudarte en tu camino hacia una mejor salud mental.</p>
+
+        <div class="filters">
+            <input type="text" id="search" placeholder="Buscar por nombre">
+            <select id="specialty">
+                <option value="">Todas las especialidades</option>
+                <option value="Ansiedad">Ansiedad</option>
+                <option value="Depresión">Depresión</option>
+                <option value="Problemas de pareja">Problemas de pareja</option>
+                <option value="Estrés">Estrés</option>
+                <option value="Adicciones">Adicciones</option>
+                <option value="Trastornos alimentarios">Trastornos alimentarios</option>
+                <option value="Fobias">Fobias</option>
+                <option value="Autoestima">Autoestima</option>
+            </select>
+            <select id="sort">
+                <option value="rating">Ordenar por calificación</option>
+                <option value="name">Ordenar por nombre</option>
+            </select>
+        </div>
+
+        <div class="psychologist-list" id="psychologist-list">
+            <!-- Psychologist cards will be dynamically inserted here -->
+        </div>
+
+        <button id="see-more-btn" class="see-more-btn">Ver más</button>
+    </main>
+
+    <div id="psychologist-modal" class="modal">
+        <div class="modal-content">
+            <span  class="close">&times;</span>
+            <div class="modal-header">
+                <img src="" alt="Psychologist photo" id="modal-photo">
+                <div>
+                    <h2 id="modal-name"></h2>
+                    <div class="psychologist-rating" id="modal-rating"></div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Biografía</h3>
+                    <p id="modal-bio"></p>
+                </div>
+                <div class="modal-section">
+                    <h3>Educación</h3>
+                    <p id="modal-education"></p>
+                </div>
+                <div class="modal-section">
+                    <h3>Métodos de tratamiento</h3>
+                    <ul id="modal-methods"></ul>
+                </div>
+                <div class="modal-section">
+                    <h3>Problemas tratados</h3>
+                    <div class="problems-treated" id="modal-problems"></div>
+                </div>
+                <div class="modal-section">
+                    <h3>Reseñas de pacientes</h3>
+                    <div id="modal-reviews"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn book-btn">Reservar cita</button>
+                <button class="modal-btn chat-btn">Chat en vivo</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Equilibrio Mental. Todos los derechos reservados.</p>
+            <div>
+                <a href="/privacidad">Política de Privacidad</a> |
+                <a href="/terminos">Términos de Servicio</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const psychologists = [
+    {
+        id: 1,
+        name: "Dra. María González",
+        photo: "https://drive.google.com/thumbnail?id=1TQQAF9F7Lbptzqxui4mC2biB1uX0RPIv",
+        shortBio: "Especialista en terapia cognitivo-conductual con 10 años de experiencia.",
+        problemsTreated: ["Ansiedad", "Depresión", "Estrés"],
+        rating: 4.8,
+        longBio: "La Dra. María González es una psicóloga clínica con más de una década de experiencia en el tratamiento de trastornos de ansiedad y depresión. Se graduó con honores de la Universidad Complutense de Madrid y ha realizado numerosas investigaciones en el campo de la salud mental.",
+        education: "Doctorado en Psicología Clínica, Universidad Complutense de Madrid",
+        methods: ["Terapia Cognitivo-Conductual", "Mindfulness", "Terapia de Aceptación y Compromiso"],
+        reviews: [
+            { id: 1, text: "Excelente profesional, me ayudó mucho con mi ansiedad.", rating: 5 },
+            { id: 2, text: "Muy empática y profesional. Altamente recomendada.", rating: 4 },
+        ],
+    },
+    {
+        id: 2,
+        name: "Dr. Carlos Rodríguez",
+        photo: "https://drive.google.com/thumbnail?id=1LgAWw7atYNBJTGrJLXTZkqfBW1c3pQPT",
+        shortBio: "Psicoterapeuta especializado en terapia familiar y de pareja.",
+        problemsTreated: ["Problemas de pareja", "Conflictos familiares", "Comunicación"],
+        rating: 4.6,
+        longBio: "El Dr. Carlos Rodríguez es un reconocido terapeuta familiar con más de 15 años de experiencia. Su enfoque se centra en mejorar la comunicación y resolver conflictos en las relaciones interpersonales.",
+        education: "Máster en Terapia Familiar Sistémica, Universidad Autónoma de Barcelona",
+        methods: ["Terapia Sistémica", "Terapia Narrativa", "Coaching Relacional"],
+        reviews: [
+            { id: 1, text: "Nos ayudó mucho a mejorar nuestra relación de pareja.", rating: 5 },
+            { id: 2, text: "Excelente terapeuta familiar. Muy recomendado.", rating: 4 },
+        ],
+    },
+    {
+                id: 3,
+                name: "Dra. Ana Martínez",
+                photo: "https://drive.google.com/thumbnail?id=1Injb67birIkN57LSE8uGtOs7S4fHrkv8",
+                shortBio: "Especialista en trastornos de ansiedad y fobias.",
+                problemsTreated: ["Ansiedad", "Fobias", "Ataques de pánico"],
+                rating: 4.9,
+                longBio: "La Dra. Ana Martínez es una experta en el tratamiento de trastornos de ansiedad y fobias. Con más de 12 años de experiencia, ha ayudado a cientos de pacientes a superar sus miedos y vivir una vida plena.",
+                education: "Doctorado en Psicología Clínica, Universidad de Barcelona",
+                methods: ["Terapia de Exposición", "Desensibilización Sistemática", "Técnicas de Relajación"],
+                reviews: [
+                    { id: 1, text: "Gracias a la Dra. Martínez, pude superar mi fobia a volar.", rating: 5 },
+                    { id: 2, text: "Excelente profesional. Me ayudó mucho con mis ataques de pánico.", rating: 5 },
+                ],
+            },
+            {
+                id: 4,
+                name: "Dr. Javier López",
+                photo: "https://drive.google.com/thumbnail?id=1QZTQoe44P5MgZJrPkLQhhP4YBgH1s25f",
+                shortBio: "Especializado en adicciones y terapia de grupo.",
+                problemsTreated: ["Adicciones", "Dependencia emocional", "Codependencia"],
+                rating: 4.7,
+                longBio: "El Dr. Javier López es un psicólogo especializado en el tratamiento de adicciones y dependencias emocionales. Su enfoque integra terapia individual y grupal para lograr resultados duraderos.",
+                education: "Máster en Psicología de las Adicciones, Universidad Complutense de Madrid",
+                methods: ["Terapia Cognitivo-Conductual", "Terapia de Grupo", "Entrevista Motivacional"],
+                reviews: [
+                    { id: 1, text: "El Dr. López me ayudó a superar mi adicción. Eternamente agradecido.", rating: 5 },
+                    { id: 2, text: "Su terapia de grupo fue fundamental en mi recuperación.", rating: 4 },
+                ],
+            },
+            {
+                id: 5,
+                name: "Dra. Laura Sánchez",
+                photo: "https://drive.google.com/thumbnail?id=1W2cvKyns_idnWugwqHyPLDxQQiQVE_cj",
+                shortBio: "Experta en trastornos alimentarios y imagen corporal.",
+                problemsTreated: ["Trastornos alimentarios", "Imagen corporal", "Autoestima"],
+                rating: 4.8,
+                longBio: "La Dra. Laura Sánchez es una psicóloga especializada en el tratamiento de trastornos alimentarios y problemas de imagen corporal. Su enfoque holístico aborda tanto los aspectos psicológicos como los nutricionales.",
+                education: "Doctorado en Psicología Clínica, Universidad Autónoma de Madrid",
+                methods: ["Terapia Cognitivo-Conductual", "Terapia Familiar", "Mindfulness"],
+                reviews: [
+                    { id: 1, text: "La Dra. Sánchez me ayudó a superar mi trastorno alimentario. Increíble profesional.", rating: 5 },
+                    { id: 2, text: "Su enfoque integral fue clave en mi recuperación.", rating: 5 },
+                ],
+            },
+            {
+                id: 6,
+                name: "Dr. Miguel Ángel Ruiz",
+                photo: "https://drive.google.com/thumbnail?id=1WDAf66QMYm0MRXGgq3bQAgmJb8k7wPU9",
+                shortBio: "Especialista en terapia infantil y adolescente.",
+                problemsTreated: ["TDAH", "Problemas de conducta", "Ansiedad infantil"],
+                rating: 4.9,
+                longBio: "El Dr. Miguel Ángel Ruiz es un psicólogo infantil con más de 15 años de experiencia. Su enfoque lúdico y adaptado a cada edad ha ayudado a numerosos niños y adolescentes a superar sus dificultades.",
+                education: "Máster en Psicología Infantil y Adolescente, Universidad de Salamanca",
+                methods: ["Terapia de Juego", "Terapia Cognitivo-Conductual", "Terapia Familiar"],
+                reviews: [
+                    { id: 1, text: "El Dr. Ruiz ha sido una bendición para nuestro hijo. Altamente recomendado.", rating: 5 },
+                    { id: 2, text: "Su paciencia y profesionalidad son admirables.", rating: 5 },
+                ],
+            },
+            {
+                id: 7,
+                name: "Dra. Elena Gómez",
+                photo: "https://drive.google.com/thumbnail?id=10_eYCYoPVKYovD-557LSiWKk7HCcI94D",
+                shortBio: "Especializada en terapia de pareja y sexología.",
+                problemsTreated: ["Problemas de pareja", "Disfunciones sexuales", "Infidelidad"],
+                rating: 4.7,
+                longBio: "La Dra. Elena Gómez es una terapeuta de pareja y sexóloga con amplia experiencia. Su enfoque integra aspectos emocionales y sexuales para mejorar la calidad de las relaciones.",
+                education: "Máster en Sexología y Terapia de Pareja, Instituto Andaluz de Sexología y Psicología",
+                methods: ["Terapia Sistémica", "Terapia Sexual", "Mindfulness"],
+                reviews: [
+                    { id: 1, text: "La Dra. Gómez salvó nuestro matrimonio. Excelente profesional.", rating: 5 },
+                    { id: 2, text: "Su enfoque integral nos ayudó mucho como pareja.", rating: 4 },
+                ],
+            },
+            {
+                id: 8,
+                name: "Dr. Alberto Fernández",
+                photo: "https://drive.google.com/thumbnail?id=1TwRNy6xmL7Oid2cF0Ym7WvlQG_9gzUPT",
+                shortBio: "Experto en psicología del deporte y alto rendimiento.",
+                problemsTreated: ["Ansiedad competitiva", "Motivación", "Lesiones deportivas"],
+                rating: 4.8,
+                longBio: "El Dr. Alberto Fernández es un psicólogo deportivo con experiencia trabajando con atletas de élite. Su enfoque se centra en potenciar el rendimiento mental y emocional en el ámbito deportivo.",
+                education: "Doctorado en Psicología del Deporte, Universidad Autónoma de Barcelona",
+                methods: ["Entrenamiento mental", "Visualización", "Técnicas de relajación"],
+                reviews: [
+                    { id: 1, text: "El Dr. Fernández me ayudó a superar mi bloqueo mental. Ahora rindo mucho mejor.", rating: 5 },
+                    { id: 2, text: "Su trabajo es fundamental para cualquier deportista que quiera mejorar.", rating: 5 },
+                ],
+            },
+            {
+                id: 9,
+                name: "Dra. Isabel Torres",
+                photo: "https://drive.google.com/thumbnail?id=17dORr2b4gog786qKaIVAw-pG3kE9grjD",
+                shortBio: "Especialista en terapia de trauma y EMDR.",
+                problemsTreated: ["TEPT", "Trauma", "Abuso"],
+                rating: 4.9,
+                longBio: "La Dra. Isabel Torres es una experta en el tratamiento del trauma psicológico. Su formación en EMDR y otras técnicas avanzadas le permite ayudar a pacientes a superar experiencias traumáticas.",
+                education: "Máster en Psicotraumatología, Universidad Complutense de Madrid",
+                methods: ["EMDR", "Terapia Cognitivo-Conductual", "Mindfulness"],
+                reviews: [
+                    { id: 1, text: "La Dra. Torres me ayudó a procesar mi trauma. Estoy eternamente agradecido.", rating: 5 },
+                    { id: 2, text: "Su empatía y profesionalidad son excepcionales.", rating: 5 },
+                ],
+            },
+            {
+                id: 10,
+                name: "Dr. Roberto Méndez",
+                photo: "https://drive.google.com/thumbnail?id=1VHrPunkN2IbzEIx5iNqBWHGCnoQkIkFl",
+                shortBio: "Especializado en psicología organizacional y coaching ejecutivo.",
+                problemsTreated: ["Estrés laboral", "Liderazgo", "Desarrollo profesional"],
+                rating: 4.7,
+                longBio: "El Dr. Roberto Méndez combina su experiencia en psicología con el mundo empresarial. Su enfoque ayuda a profesionales y ejecutivos a alcanzar su máximo potencial y mejorar su bienestar en el trabajo.",
+                education: "MBA y Doctorado en Psicología Organizacional, IESE Business School",
+                methods: ["Coaching ejecutivo", "Terapia Cognitivo-Conductual", "Mindfulness"],
+                reviews: [
+                    { id: 1, text: "El Dr. Méndez transformó mi enfoque del liderazgo. Altamente recomendado.", rating: 5 },
+                    { id: 2, text: "Sus sesiones de coaching fueron fundamentales para mi desarrollo profesional.", rating: 4 },
+                ],
+            },
+            {
+                id: 11,
+                name: "Dra. Carmen Vidal",
+                photo: "https://drive.google.com/thumbnail?id=14cQc8Ecb_dBED3ugS7zvKDsPB3Y-tanh",
+                shortBio: "Especialista en terapia de duelo y pérdidas.",
+                problemsTreated: ["Duelo", "Depresión", "Ansiedad"],
+                rating: 4.8,
+                longBio: "La Dra. Carmen Vidal es una psicóloga especializada en acompañar a personas en procesos de duelo y pérdida. Su enfoque compasivo y respetuoso ayuda a sus pacientes a encontrar significado y crecimiento en momentos difíciles.",
+                education: "Máster en Counseling y Terapia de Duelo, Universidad de Barcelona",
+                methods: ["Terapia Narrativa", "Mindfulness", "Terapia de Aceptación y Compromiso"],
+                reviews: [
+                    { id: 1, text: "La Dra. Vidal me ayudó a procesar la pérdida de mi ser querido. Su apoyo fue invaluable.", rating: 5 },
+                    { id: 2, text: "Su calidez y profesionalidad hacen que el proceso de duelo sea más llevadero.", rating: 5 },
+                ],
+            },
+            {
+                id: 12,
+                name: "Dr. Alejandro Ramos",
+                photo: "https://drive.google.com/thumbnail?id=1-22DvNsMSaB1gh1KFQ_8RY2BvIGGK_2j",
+                shortBio: "Experto en psicología positiva y bienestar.",
+                problemsTreated: ["Depresión", "Baja autoestima", "Falta de propósito"],
+                rating: 4.7,
+                longBio: "El Dr. Alejandro Ramos se especializa en aplicar los principios de la psicología positiva para mejorar el bienestar y la satisfacción vital de sus pacientes. Su enfoque se centra en potenciar las fortalezas y cultivar emociones positivas.",
+                education: "Doctorado en Psicología Positiva, Universidad de Pensilvania",
+                methods: ["Intervenciones de Psicología Positiva", "Terapia Cognitivo-Conductual", "Coaching de Vida"],
+                reviews: [
+                    { id: 1, text: "El Dr. Ramos me ayudó a encontrar un nuevo sentido en mi vida. Increíble profesional.", rating: 5 },
+                    { id: 2, text: "Sus técnicas de psicología positiva han transformado mi perspectiva.", rating: 4 },
+                ],
+            },
+
+    
+    // ... (add more psychologists with similar structure)
+];
+
+        let currentPage = 1;
+        const psychologistsPerPage = 8;
+        let filteredPsychologists = [];
+
+        function renderPsychologists(psychologistsToRender) {
+            const psychologistList = document.getElementById('psychologist-list');
+            psychologistList.innerHTML = '';
+
+            psychologistsToRender.forEach(psych => {
+                const card = document.createElement('div');
+                card.className = 'psychologist-card';
+                card.innerHTML = `
+                    <img src="${psych.photo}" alt="${psych.name}">
+                    <div class="psychologist-info">
+                        <h2 class="psychologist-name">${psych.name}</h2>
+                        <div class="psychologist-rating">
+                            ${renderStars(psych.rating)}
+                            <span>${psych.rating.toFixed(1)}</span>
+                        </div>
+                        <p class="psychologist-bio">${psych.shortBio}</p>
+                        <div class="problems-treated">
+                            ${psych.problemsTreated.map(problem => `<span class="problem-tag">${problem}</span>`).join('')}
+                        </div>
+                        <a href="#" class="view-profile-btn" data-id="${psych.id}">Ver perfil completo</a>
+                    </div>
+                `;
+                psychologistList.appendChild(card);
+            });
+
+            attachViewProfileListeners();
+        }
+
+        function renderStars(rating) {
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5;
+            const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+            return `
+                ${'<i class="lucide-star star" data-value="1"></i>'.repeat(fullStars)}
+                ${halfStar ? '<i class="lucide-star-half star" data-value="0.5"></i>' : ''}
+                ${'<i class="lucide-star star" style="color: #ccc;" data-value="0"></i>'.repeat(emptyStars)}
+            `;
+        }
+
+        function attachViewProfileListeners() {
+            const viewProfileButtons = document.querySelectorAll('.view-profile-btn');
+                        viewProfileButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const psychId = parseInt(button.getAttribute('data-id'));
+                    const psych = psychologists.find(p => p.id === psychId);
+                    openModal(psych);
+                });
+                        });
+
+            const ratingStars = document.querySelectorAll('.psychologist-rating .star');
+            ratingStars.forEach(star => {
+                star.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const psychId = parseInt(e.target.closest('.psychologist-card').querySelector('.view-profile-btn').getAttribute('data-id'));
+                    const newRating = parseFloat(e.target.getAttribute('data-value'));
+                    updateRating(psychId, newRating);
+                });
+            });
+        }
+
+        function updateRating(psychId, newRating) {
+            const psych = psychologists.find(p => p.id === psychId);
+            if (psych) {
+                psych.rating = (psych.rating + newRating) / 2;
+                const card = document.querySelector(`.psychologist-card .view-profile-btn[data-id="${psychId}"]`).closest('.psychologist-card');
+                const ratingElement = card.querySelector('.psychologist-rating');
+                ratingElement.innerHTML = `
+                    ${renderStars(psych.rating)}
+                    <span>${psych.rating.toFixed(1)}</span>
+                `;
+                attachViewProfileListeners();
+            }
+        }
+
+        function openModal(psych) {
+            const modal = document.getElementById('psychologist-modal');
+            const modalPhoto = document.getElementById('modal-photo');
+            const modalName = document.getElementById('modal-name');
+            const modalRating = document.getElementById('modal-rating');
+            const modalBio = document.getElementById('modal-bio');
+            const modalEducation = document.getElementById('modal-education');
+            const modalMethods = document.getElementById('modal-methods');
+            const modalProblems = document.getElementById('modal-problems');
+            const modalReviews = document.getElementById('modal-reviews');
+
+            modalPhoto.src = psych.photo;
+            modalPhoto.alt = psych.name;
+            modalName.textContent = psych.name;
+            modalRating.innerHTML = `${renderStars(psych.rating)} <span>${psych.rating.toFixed(1)}</span>`;
+            modalBio.textContent = psych.longBio;
+            modalEducation.textContent = psych.education;
+            modalMethods.innerHTML = psych.methods.map(method => `<li>${method}</li>`).join('');
+            modalProblems.innerHTML = psych.problemsTreated.map(problem => `<span class="problem-tag">${problem}</span>`).join('');
+            modalReviews.innerHTML = psych.reviews.map(review => `
+                <div class="review-comment">
+                    <div>${renderStars(review.rating)}</div>
+                    <p>${review.text}</p>
+                </div>
+            `).join('');
+
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('psychologist-modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.querySelector('.close').addEventListener('click', closeModal);
+
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('psychologist-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        function filterAndSortPsychologists() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const specialty = document.getElementById('specialty').value;
+            const sortBy = document.getElementById('sort').value;
+
+            filteredPsychologists = psychologists.filter(psych => 
+                psych.name.toLowerCase().includes(searchTerm) &&
+                (specialty === "" || psych.problemsTreated.includes(specialty))
+            );
+
+            filteredPsychologists.sort((a, b) => {
+                if (sortBy === 'rating') {
+                    return b.rating - a.rating;
+                } else {
+                    return a.name.localeCompare(b.name);
+                }
+            });
+
+            currentPage = 1;
+            document.getElementById('psychologist-list').innerHTML = ''; // Clear the list
+            renderPaginatedPsychologists();
+        }
+
+        function renderPaginatedPsychologists() {
+            const initialLoad = 6;
+            const loadMore = 3;
+            const startIndex = currentPage === 1 ? 0 : initialLoad + (currentPage - 2) * loadMore;
+            const endIndex = currentPage === 1 ? initialLoad : startIndex + loadMore;
+            const psychologistsToRender = filteredPsychologists.slice(startIndex, endIndex);
+
+            if (currentPage === 1) {
+                renderPsychologists(psychologistsToRender);
+            } else {
+                appendPsychologists(psychologistsToRender);
+            }
+
+            const seeMoreBtn = document.getElementById('see-more-btn');
+            if (endIndex >= filteredPsychologists.length) {
+                seeMoreBtn.style.display = 'none';
+            } else {
+                seeMoreBtn.style.display = 'block';
+            }
+        }
+
+        function appendPsychologists(psychologistsToRender) {
+            const psychologistList = document.getElementById('psychologist-list');
+            psychologistsToRender.forEach(psych => {
+                const card = document.createElement('div');
+                card.className = 'psychologist-card';
+                card.innerHTML = `
+                    <img src="${psych.photo}" alt="${psych.name}">
+                    <div class="psychologist-info">
+                        <h2 class="psychologist-name">${psych.name}</h2>
+                        <div class="psychologist-rating">
+                            ${renderStars(psych.rating)}
+                            <span>${psych.rating.toFixed(1)}</span>
+                        </div>
+                        <p class="psychologist-bio">${psych.shortBio}</p>
+                        <div class="problems-treated">
+                            ${psych.problemsTreated.map(problem => `<span class="problem-tag">${problem}</span>`).join('')}
+                        </div>
+                        <a href="#" class="view-profile-btn" data-id="${psych.id}">Ver perfil completo</a>
+                    </div>
+                `;
+                psychologistList.appendChild(card);
+            });
+
+            attachViewProfileListeners();
+        }
+
+
+        document.getElementById('search').addEventListener('input', filterAndSortPsychologists);
+        document.getElementById('specialty').addEventListener('change', filterAndSortPsychologists);
+        document.getElementById('sort').addEventListener('change', filterAndSortPsychologists);
+
+        document.getElementById('see-more-btn').addEventListener('click', () => {
+            currentPage++;
+            renderPaginatedPsychologists();
+        });
+
+        // Mobile menu toggle
+        const menuButton = document.querySelector('.menu-button');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuButton.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Initial render
+        filterAndSortPsychologists();
+    </script>
+</body>
+</html>

@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citas - Equilibrio Mental</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/lucide-static@0.321.0/font/lucide.min.css" rel="stylesheet">
+<style>
+    :root {
+        --primary-color: #4A90E2;
+        --background-color: #F0F4F8;
+        --text-color: #2C3E50;
+        --gray-color: #6c757d;
+        --white: #FFFFFF;
+        --light-gray: #e9ecef;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    header {
+        background-color: var(--white);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+    }
+
+    .nav-links a {
+        color: var(--gray-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-links a:hover {
+        color: var(--white);
+        background-color: var(--primary-color);
+        border-radius: 4px;
+    }
+
+    .profile-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        transition: transform 0.3s ease;
+    }
+
+    .profile-link:hover {
+        transform: translateY(-2px);
+    }
+
+    .profile-link i {
+        margin-right: 0.5rem;
+    }
+
+    .menu-button {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        cursor: pointer;
+    }
+
+    main {
+        padding: 2rem 0;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .intro {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 2rem;
+        color: var(--gray-color);
+    }
+
+    .appointments-container {
+        display: flex;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .calendar-container {
+        flex: 1;
+        background-color: var(--white);
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .calendar {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .calendar th, .calendar td {
+        text-align: center;
+        padding: 0.5rem;
+        border: 1px solid var(--light-gray);
+    }
+
+    .calendar th {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    .calendar td {
+        cursor: pointer;
+    }
+
+    .calendar td:hover {
+        background-color: var(--light-gray);
+    }
+
+    .calendar .selected {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    .calendar .other-month {
+        color: var(--gray-color);
+    }
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .calendar-header button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+    }
+
+    .calendar-header button svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .time-slots {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .time-slot {
+        padding: 0.5rem;
+        text-align: center;
+        background-color: var(--light-gray);
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .time-slot:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    .time-slot.selected {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    .time-slot.unavailable {
+        background-color: var(--gray-color);
+        color: var(--white);
+        cursor: not-allowed;
+    }
+
+    .reservation-btn {
+        display: block;
+        width: 100%;
+        padding: 0.75rem;
+        margin-top: 1rem;
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .reservation-btn:hover {
+        background-color: #3a7bc8;
+    }
+
+    .appointments-list {
+        flex: 1;
+        background-color: var(--white);
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .appointment-item {
+        background-color: var(--light-gray);
+        border-radius: 4px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .appointment-item:hover {
+        transform: translateY(-2px);
+    }
+
+    .appointment-item h3 {
+        margin: 0 0 0.5rem 0;
+        color: var(--primary-color);
+    }
+
+    .appointment-item p {
+        margin: 0;
+        color: var(--gray-color);
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+        backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+        background-color: var(--white);
+        margin: 10% auto;
+        padding: 2rem;
+        border-radius: 8px;
+        max-width: 500px;
+        position: relative;
+    }
+
+    .close {
+        color: var(--gray-color);
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: var(--text-color);
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+    }
+
+    .modal-btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .reschedule-btn {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    .reschedule-btn:hover {
+        background-color: #3a7bc8;
+    }
+
+    .cancel-btn {
+        background-color: var(--danger-color);
+        color: var(--white);
+    }
+
+    .cancel-btn:hover {
+        background-color: #c82333;
+    }
+
+    select {
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 1rem;
+        border: 1px solid var(--gray-color);
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    footer {
+        background-color: var(--text-color);
+        color: var(--white);
+        text-align: center;
+        padding: 2rem 0;
+        margin-top: 4rem;
+    }
+
+    footer a {
+        color: var(--white);
+        text-decoration: none;
+        margin: 0 0.5rem;
+    }
+
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes fadeOutScale {
+        from {
+            opacity: 1;
+            transform: scale(1);
+        }
+        to {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+    }
+
+    .appointment-item.new {
+        animation: fadeInScale 0.5s ease-out;
+    }
+
+    .appointment-item.removing {
+        animation: fadeOutScale 0.5s ease-in;
+    }
+
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+        }
+
+        .menu-button {
+            display: block;
+        }
+
+        .nav-links.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--white);
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .appointments-container {
+            flex-direction: column;
+        }
+    }
+</style>
+</head>
+<body>
+<header>
+    <nav class="container">
+        <a href="../index.html" class="logo">Equilibrio Mental</a>
+        <div class="nav-links">
+            <a href="psicologos.html">Psicólogos</a>
+            <a href="citas.html">Citas</a>
+            <a href="#pruebas">Pruebas</a>
+            <a href="#educacion">Educación</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+        <a href="#perfil" class="profile-link">
+            <i class="lucide-user"></i>
+            Tu Perfil
+        </a>
+        <button class="menu-button" aria-label="Menú">
+            <i class="lucide-menu"></i>
+        </button>
+    </nav>
+</header>
+
+<main class="container">
+    <h1>Citas</h1>
+    <p class="intro">Programa, gestiona y recibe recordatorios de tus citas con nuestros psicólogos de manera simple y organizada. Selecciona fechas, visualiza tus citas programadas y realiza ajustes según sea necesario.</p>
+
+    <div class="appointments-container">
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button id="prevMonth">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                    </svg>
+                </button>
+                <h2 id="currentMonth"></h2>
+                <button id="nextMonth">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                    </svg>
+                </button>
+            </div>
+            <div id="calendar"></div>
+            <div class="time-slots" id="timeSlots"></div>
+            <select id="psychologistSelect">
+                <option value="">Selecciona un psicólogo</option>
+                <option value="Dra. María González">Dra. María González</option>
+                <option value="Dr. Carlos Rodríguez">Dr. Carlos Rodríguez</option>
+                <option value="Lic. Ana Martínez">Lic. Ana Martínez</option>
+            </select>
+            <button class="reservation-btn" id="reservationBtn">Reservar Cita</button>
+        </div>
+        <div class="appointments-list">
+            <h2>Próximas Citas</h2>
+            <div id="appointmentsList"></div>
+        </div>
+    </div>
+</main>
+
+<div id="appointmentModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Detalles de la Cita</h2>
+        <div id="appointmentDetails"></div>
+        <div class="modal-buttons">
+            <button class="modal-btn reschedule-btn" id="rescheduleBtn">Reprogramar</button>
+            <button class="modal-btn cancel-btn" id="cancelBtn">Cancelar Cita</button>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2023 Equilibrio Mental. Todos los derechos reservados.</p>
+        <div>
+            <a href="/privacidad">Política de Privacidad</a> |
+            <a href="/terminos">Términos de Servicio</a> |
+            <a href="/contacto">Contacto</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendar = document.getElementById('calendar');
+        const currentMonthElement = document.getElementById('currentMonth');
+        const prevMonthBtn = document.getElementById('prevMonth');
+        const nextMonthBtn = document.getElementById('nextMonth');
+        const timeSlots = document.getElementById('timeSlots');
+        const reservationBtn = document.getElementById('reservationBtn');
+        const appointmentsList = document.getElementById('appointmentsList');
+        const appointmentModal = document.getElementById('appointmentModal');
+        const appointmentDetails = document.getElementById('appointmentDetails');
+        const rescheduleBtn = document.getElementById('rescheduleBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const closeModal = document.getElementsByClassName('close')[0];
+        const psychologistSelect = document.getElementById('psychologistSelect');
+
+        let currentDate = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+        let appointments = [];
+
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            currentMonthElement.textContent = new Date(year, month, 1).toLocaleString('es-ES', { month: 'long', year: 'numeric' });
+
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+
+            let html = '<table class="calendar">';
+            html += '<tr><th>Dom</th><th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th></tr>';
+
+            let date = new Date(firstDay);
+            date.setDate(date.getDate() - date.getDay());
+
+            while (date <= lastDay || date.getDay() !== 0) {
+                if (date.getDay() === 0) html += '<tr>';
+
+                const className = date.getMonth() === month ? '' : 'other-month';
+                const isToday = date.toDateString() === new Date().toDateString() ? 'today' : '';
+                const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString() ? 'selected' : '';
+
+                html += `<td class="${className} ${isToday} ${isSelected}" data-date="${date.toISOString()}">${date.getDate()}</td>`;
+
+                if (date.getDay() === 6) html += '</tr>';
+                date.setDate(date.getDate() + 1);
+            }
+
+            html += '</table>';
+            calendar.innerHTML = html;
+
+            calendar.querySelectorAll('td').forEach(cell => {
+                cell.addEventListener('click', selectDate);
+            });
+        }
+
+        function selectDate(e) {
+            const previousSelected = calendar.querySelector('.selected');
+            if (previousSelected) previousSelected.classList.remove('selected');
+
+            e.target.classList.add('selected');
+            selectedDate = new Date(e.target.dataset.date);
+            renderTimeSlots();
+        }
+
+        function renderTimeSlots() {
+            const slots = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+            let html = '';
+
+            slots.forEach(slot => {
+                const isAvailable = !appointments.some(apt => 
+                    apt.date.toDateString() === selectedDate.toDateString() && apt.time === slot
+                );
+                const className = isAvailable ? '' : 'unavailable';
+                html += `<div class="time-slot ${className}" data-time="${slot}">${slot}</div>`;
+            });
+
+            timeSlots.innerHTML = html;
+
+            timeSlots.querySelectorAll('.time-slot:not(.unavailable)').forEach(slot => {
+                slot.addEventListener('click', selectTime);
+            });
+        }
+
+        function selectTime(e) {
+            const previousSelected = timeSlots.querySelector('.selected');
+            if (previousSelected) previousSelected.classList.remove('selected');
+
+            e.target.classList.add('selected');
+            selectedTime = e.target.dataset.time;
+        }
+
+        function makeReservation() {
+            if (!selectedDate || !selectedTime || !psychologistSelect.value) {
+                alert('Por favor, selecciona una fecha, hora y psicólogo para tu cita.');
+                return;
+            }
+
+            const appointment = {
+                id: Date.now(),
+                date: selectedDate,
+                time: selectedTime,
+                psychologist: psychologistSelect.value
+            };
+
+            appointments.push(appointment);
+            renderAppointments(appointment.id);
+            resetSelection();
+        }
+
+        function renderAppointments(newAppointmentId = null) {
+            let html = '';
+            appointments.sort((a, b) => a.date - b.date || a.time.localeCompare(b.time));
+
+            appointments.forEach(apt => {
+                const isNew = apt.id === newAppointmentId ? 'new' : '';
+                html += `
+                    <div class="appointment-item ${isNew}" data-id="${apt.id}">
+                        <h3>${apt.psychologist}</h3>
+                        <p>${apt.date.toLocaleDateString()} a las ${apt.time}</p>
+                    </div>
+                `;
+            });
+
+            appointmentsList.innerHTML = html;
+
+            appointmentsList.querySelectorAll('.appointment-item').forEach(item => {
+                item.addEventListener('click', showAppointmentDetails);
+            });
+        }
+
+        function showAppointmentDetails(e) {
+            const appointmentId = parseInt(e.currentTarget.dataset.id);
+            const appointment = appointments.find(apt => apt.id === appointmentId);
+
+            if (appointment) {
+                appointmentDetails.innerHTML = `
+                    <p><strong>Psicólogo:</strong> ${appointment.psychologist}</p>
+                    <p><strong>Fecha:</strong> ${appointment.date.toLocaleDateString()}</p>
+                    <p><strong>Hora:</strong> ${appointment.time}</p>
+                `;
+                appointmentModal.style.display = 'block';
+                rescheduleBtn.dataset.appointmentId = appointmentId;
+                cancelBtn.dataset.appointmentId = appointmentId;
+            }
+        }
+
+        function resetSelection() {
+            selectedDate = null;
+            selectedTime = null;
+            const selectedDateCell = calendar.querySelector('.selected');
+            if (selectedDateCell) selectedDateCell.classList.remove('selected');
+            const selectedTimeSlot = timeSlots.querySelector('.selected');
+            if (selectedTimeSlot) selectedTimeSlot.classList.remove('selected');
+            psychologistSelect.value = '';
+            renderTimeSlots();
+        }
+
+        reservationBtn.addEventListener('click', makeReservation);
+
+        closeModal.addEventListener('click', () => {
+            appointmentModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === appointmentModal) {
+                appointmentModal.style.display = 'none';
+            }
+        });
+
+        rescheduleBtn.addEventListener('click', () => {
+            const appointmentId = parseInt(rescheduleBtn.dataset.appointmentId);
+            const appointment = appointments.find(apt => apt.id === appointmentId);
+            if (appointment) {
+                selectedDate = appointment.date;
+                selectedTime = appointment.time;
+                psychologistSelect.value = appointment.psychologist;
+                renderCalendar();
+                renderTimeSlots();
+                cancelAppointment(appointmentId);
+            }
+            appointmentModal.style.display = 'none';
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            if (confirm('¿Estás seguro de que deseas cancelar esta cita?')) {
+                const appointmentId = parseInt(cancelBtn.dataset.appointmentId);
+                cancelAppointment(appointmentId);
+                appointmentModal.style.display = 'none';
+            }
+        });
+
+        function cancelAppointment(appointmentId) {
+            const appointmentElement = document.querySelector(`.appointment-item[data-id="${appointmentId}"]`);
+            if (appointmentElement) {
+                appointmentElement.classList.add('removing');
+                appointmentElement.addEventListener('animationend', () => {
+                    appointments = appointments.filter(apt => apt.id !== appointmentId);
+                    renderAppointments();
+                });
+            }
+        }
+
+        prevMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        nextMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        // Mobile menu functionality
+        const menuButton = document.querySelector('.menu-button');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuButton.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        renderCalendar();
+        renderAppointments();
+    });
+</script>
+</body>
+</html>

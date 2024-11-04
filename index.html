@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Balance - Tu Plataforma de Salud Mental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --background-color: #F0F4F8;
+            --text-color: #2C3E50;
+            --gray-color: #6c757d;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+            background-color: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .profile-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .profile-link svg {
+            margin-right: 0.5rem;
+        }
+
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .slider {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+            margin-top: 2rem;
+            border: 2px solid #333;
+            border-radius: 8px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .slide.current {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            z-index: 10;
+            width: 100%;
+            text-align: center;
+        }
+
+        .hero {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 4rem 0;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--white);
+            color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #e6e6e6;
+        }
+
+        .btn-secondary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: #3a7bc8;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .service-card h3 svg {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+            width: 24px;
+            height: 24px;
+        }
+
+        .service-card p {
+            color: var(--gray-color);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .emergency {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 6rem;
+        }
+
+        footer {
+            background-color: var(--text-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--white);
+                padding: 1rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Equilibrio Mental</a>
+            <div class="nav-links">
+                <a href="paginas/psicologos.html">Psicólogos</a>
+                <a href="paginas/citas.html">Citas</a>
+                <a href="#pruebas">Pruebas</a>
+                <a href="#educacion">Educación</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+            <a href="#perfil" class="profile-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+                Tu Perfil
+            </a>
+            <button class="menu-button" aria-label="Menú">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="slider">
+            <div class="slide current">
+                <h2 class="slider-title">Descubre Tu Camino al Bienestar</h2>
+                <img src="img/slider-1.jpg" alt="Imagen de bienestar mental 1">
+            </div>
+            <div class="slide">
+                <h2 class="slider-title">Encuentra Tu Equilibrio Interior</h2>
+                <img src="img/slider-2.jpg" alt="Imagen de bienestar mental 2">
+            </div>
+            <div class="slide">
+                <h2 class="slider-title">Cultiva Tu Salud Mental</h2>
+                <img src="img/slider-3.jpg" alt="Imagen de bienestar mental 3">
+            </div>
+            <div class="slide">
+                <h2 class="slider-title">Transforma Tu Vida</h2>
+                <img src="img/slider-4.jpg" alt="Imagen de bienestar mental 4">
+            </div>
+        </div>
+
+        <section class="hero">
+            <h1>¡Bienvenido a tu espacio de equilibrio mental!</h1>
+            <p>Encuentra apoyo, orientación y recursos para tu bienestar psicológico</p>
+            <a href="#" class="btn btn-primary">Comienza tu viaje</a>
+        </section>
+
+        <section class="services">
+            <div class="service-card">
+                <h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                    </svg>
+                    Reservar Cita
+                </h3>
+                <p>Programa una sesión con nuestros psicólogos experimentados</p>
+                <a href="#" class="btn btn-secondary">Reservar Ahora</a>
+            </div>
+            <div class="service-card">
+                <h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                    </svg>
+                    Realizar Prueba
+                </h3>
+                <p>Explora nuestra gama de evaluaciones psicológicas</p>
+                <a href="#" class="btn btn-secondary">Iniciar Prueba</a>
+            </div>
+            <div class="service-card">
+                <h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967  8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                    </svg>
+                    Aprender
+                </h3>
+                <p>Accede a nuestra biblioteca de recursos de salud mental</p>
+                <a href="#" class="btn btn-secondary">Explorar</a>
+            </div>
+            <div class="service-card">
+                <h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
+                    </svg>
+                    Comunidad
+                </h3>
+                <p>Únete a nuestros foros de apoyo comunitario</p>
+                <a href="#" class="btn btn-secondary">Unirse Ahora</a>
+            </div>
+        </section>
+
+        <section class="emergency">
+            <h2>¿Necesitas Ayuda Inmediata?</h2>
+            <p>Si estás en crisis o necesitas apoyo urgente, no dudes en contactarnos.</p>
+            <a href="#" class="btn btn-secondary">Obtener Ayuda Ahora</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Mental Balance. Todos los derechos reservados.</p>
+            <div>
+                <a href="/privacidad">Política de Privacidad</a> |
+                <a href="/terminos">Términos de Servicio</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const menuButton = document.querySelector('.menu-button');
+            const navLinks = document.querySelector('.nav-links');
+
+            menuButton.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Image slider functionality
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
+            const slideInterval = setInterval(nextSlide, 5000);
+
+            function nextSlide() {
+                slides[currentSlide].classList.remove('current');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('current');
+            }
+        });
+    </script>
+</body>
+</html>
