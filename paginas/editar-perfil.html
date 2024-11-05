@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Mi Perfil - Equilibrio Mental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #45D390;
+            --background-color: #F0F4F8;
+            --text-color: #2C3E50;
+            --gray-color: #6c757d;
+            --white: #FFFFFF;
+            --light-gray: #e9ecef;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--white);
+            background-color: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .profile-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .profile-link svg {
+            margin-right: 0.5rem;
+        }
+
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .profile-container {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--light-gray);
+            margin-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3a7bc8;
+        }
+
+        .appointment-list, .test-list, .resource-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .appointment-item, .test-item, .resource-item {
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        footer {
+            background-color: var(--text-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--white);
+                padding: 1rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-picture {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="../index.html" class="logo">Equilibrio Mental</a>
+            <div class="nav-links">
+                <a href="psicologos.html">Psicólogos</a>
+                <a href="citas.html">Citas</a>
+                <a href="pruebas.html">Pruebas</a>
+                <a href="educacion.html">Educación</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+            <a href="mi-perfil.html" class="profile-link active">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+                Tu Perfil
+            </a>
+            <button class="menu-button" aria-label="Menú">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Mi Perfil</h1>
+        <p>Aquí puedes acceder a tus citas, recursos favoritos y pruebas realizadas en Equilibrio Mental.</p>
+
+        <div class="profile-container">
+            <div class="profile-header">
+                <img src="https://drive.google.com/thumbnail?id=1VHrPunkN2IbzEIx5iNqBWHGCnoQkIkFl" alt="Foto de perfil" class="profile-picture">
+                <div>
+                    <h2 class="profile-name">Juan Pérez</h2>
+                    <p>juan.perez@email.com</p>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active" data-tab="info">Información Personal</div>
+                <div class="tab" data-tab="appointments">Citas</div>
+                <div class="tab" data-tab="tests">Pruebas Psicológicas</div>
+                <div class="tab" data-tab="resources">Recursos Guardados</div>
+                <div class="tab" data-tab="notifications">Notificaciones</div>
+            </div>
+
+            <div id="info" class="tab-content active">
+                <form id="profile-form">
+                    <div class="form-group">
+                        <label for="name">Nombre completo</label>
+                        <input type="text" id="name" name="name" value="Juan Pérez" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" name="email" value="juan.perez@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthdate">Fecha de nacimiento</label>
+                        <input type="date" id="birthdate" name="birthdate" value="1990-01-01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" name="phone" value="+34 600 123 456">
+                    </div>
+                    <button type="submit">Guardar cambios</button>
+                </form>
+            </div>
+
+            <div id="appointments" class="tab-content">
+                <h3>Próximas Citas</h3>
+                <ul class="appointment-list">
+                    <li class="appointment-item">
+                        <strong>Dr. María González</strong>
+                        <p>Fecha: 15 de mayo, 2023</p>
+                        <p>Hora: 10:00 AM</p>
+                        <button>Ver detalles</button>
+                    </li>
+                    <li class="appointment-item">
+                        <strong>Dr. Carlos Rodríguez</strong>
+                        <p>Fecha: 22 de mayo, 2023</p>
+                        <p>Hora: 3:00 PM</p>
+                        <button>Ver detalles</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="tests" class="tab-content">
+                <h3>Pruebas Realizadas</h3>
+                <ul class="test-list">
+                    <li class="test-item">
+                        <strong>Evaluación de Ansiedad</strong>
+                        <p>Fecha: 5 de abril, 2023</p>
+                        <button>Ver resultados</button>
+                    </li>
+                    <li class="test-item">
+                        <strong>Test de Depresión</strong>
+                        <p>Fecha: 20 de marzo, 2023</p>
+                        <button>Ver resultados</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="resources" class="tab-content">
+                <h3>Recursos Guardados</h3>
+                <ul class="resource-list">
+                    <li class="resource-item">
+                        <strong>Técnicas de Relajación</strong>
+                        <p>Tipo: Artículo</p>
+                        <button>Leer</button>
+                    </li>
+                    <li class="resource-item">
+                        <strong>Meditación Guiada</strong>
+                        <p>Tipo: Video</p>
+                        <button>Ver</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="notifications" class="tab-content">
+                <h3>Preferencias de Notificación</h3>
+                <div class="form-group">
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        
+                        <span class="slider"></span>
+                    </label>
+                    <label>Recordatorios de citas</label>
+                </div>
+                <div class="form-group">
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                    <label>Nuevos recursos educativos</label>
+                </div>
+                <div class="form-group">
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <label>Actualizaciones del perfil</label>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Equilibrio Mental. Todos los derechos reservados.</p>
+            <div>
+                <a href="privacidad.html">Política de Privacidad</a> |
+                <a href="terminos.html">Términos de Servicio</a> |
+                <a href="soporte.html">Soporte</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.querySelector('.menu-button');
+            const navLinks = document.querySelector('.nav-links');
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const profileForm = document.getElementById('profile-form');
+
+            // Mobile menu toggle
+            menuButton.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Tab functionality
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Profile form submission (mock)
+            profileForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Perfil actualizado correctamente');
+            });
+
+            // Add more interactivity as needed for appointments, tests, resources, and notifications
+        });
+    </script>
+</body>
+</html>

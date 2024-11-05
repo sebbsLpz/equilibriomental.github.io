@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Equilibrio Mental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #45D390;
+            --background-color: #F0F4F8;
+            --text-color: #2C3E50;
+            --gray-color: #6c757d;
+            --white: #FFFFFF;
+            --light-gray: #e9ecef;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--white);
+            background-color: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .profile-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .profile-link svg {
+            margin-right: 0.5rem;
+        }
+
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 2rem 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .profile-container {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 2rem;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-email {
+            color: var(--gray-color);
+            margin-bottom: 1rem;
+        }
+
+        .edit-profile-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-profile-btn:hover {
+            background-color: #3a7bc8;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--light-gray);
+            margin-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3a7bc8;
+        }
+
+        .appointment-list, .test-list, .resource-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .appointment-item, .test-item, .resource-item {
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: var(--text-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--white);
+                padding: 1rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-picture {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="../index.html" class="logo">Equilibrio Mental</a>
+            <div class="nav-links">
+                <a href="psicologos.html">Psicólogos</a>
+                <a href="citas.html">Citas</a>
+                <a href="pruebas.html">Pruebas</a>
+                <a href="educacion.html">Educación</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+            <a href="mi-perfil.html" class="profile-link active">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+                Tu Perfil
+            </a>
+            <button class="menu-button" aria-label="Menú">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Mi Perfil</h1>
+        <div class="profile-container">
+            <div class="profile-header">
+                <img src="https://drive.google.com/thumbnail?id=1VHrPunkN2IbzEIx5iNqBWHGCnoQkIkFl" alt="Foto de perfil" class="profile-picture" id="profile-picture">
+                <div class="profile-info">
+                    <h2 class="profile-name" id="profile-name">Juan Pérez</h2>
+                    <p class="profile-email" id="profile-email">juan.perez@email.com</p>
+                    <a href="editar-perfil.html"><button class="edit-profile-btn" id="edit-profile-btn">Editar Perfil</button></a>
+                   
+                </div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active" data-tab="info">Información Personal</div>
+                <div class="tab" data-tab="appointments">Citas</div>
+                <div class="tab" data-tab="tests">Pruebas Psicológicas</div>
+                <div class="tab" data-tab="resources">Recursos Guardados</div>
+                <div class="tab" data-tab="notifications">Notificaciones</div>
+            </div>
+
+            <div id="info" class="tab-content active">
+                <p><strong>Fecha de nacimiento:</strong> <span id="profile-birthdate">1 de enero, 1990</span></p>
+                <p><strong>Teléfono:</strong> <span id="profile-phone">+34 600 123 456</span></p>
+                <p><strong>Dirección:</strong> <span id="profile-address">Calle Ejemplo, 123, 28001 Madrid</span></p>
+            </div>
+
+            <div id="appointments" class="tab-content">
+                <h3>Próximas Citas</h3>
+                <ul class="appointment-list" id="appointment-list">
+                    <!-- Appointments will be dynamically added here -->
+                </ul>
+            </div>
+
+            <div id="tests" class="tab-content">
+                <h3>Pruebas Realizadas</h3>
+                <ul class="test-list" id="test-list">
+                    <!-- Tests will be dynamically added here -->
+                </ul>
+            </div>
+
+            <div id="resources" class="tab-content">
+                <h3>Recursos Guardados</h3>
+                <ul class="resource-list" id="resource-list">
+                    <!-- Resources will be dynamically added here -->
+                </ul>
+            </div>
+
+            <div id="notifications" class="tab-content">
+                <h3>Preferencias de Notificación</h3>
+                <div class="form-group">
+                    <label class="switch">
+                        <input type="checkbox" id="appointment-notifications" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <label for="appointment-notifications">Recordatorios de citas</label>
+                </div>
+                <div class="form-group">
+                    <label class="switch">
+                
+                        <input type="checkbox" id="resource-notifications">
+                        <span class="slider"></span>
+                    </label>
+                    <label for="resource-notifications">Nuevos recursos educativos</label>
+                </div>
+                <div class="form-group">
+                    <label class="switch">
+                        <input type="checkbox" id="profile-notifications" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <label for="profile-notifications">Actualizaciones del perfil</label>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Editar Perfil</h2>
+            <form id="edit-profile-form">
+                <div class="form-group">
+                    <label for="edit-name">Nombre completo</label>
+                    <input type="text" id="edit-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-email">Correo electrónico</label>
+                    <input type="email" id="edit-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-birthdate">Fecha de nacimiento</label>
+                    <input type="date" id="edit-birthdate" name="birthdate" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-phone">Teléfono</label>
+                    <input type="tel" id="edit-phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="edit-address">Dirección</label>
+                    <input type="text" id="edit-address" name="address">
+                </div>
+                <button type="submit">Guardar cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Equilibrio Mental. Todos los derechos reservados.</p>
+            <div>
+                <a href="privacidad.html">Política de Privacidad</a> |
+                <a href="terminos.html">Términos de Servicio</a> |
+                <a href="soporte.html">Soporte</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.querySelector('.menu-button');
+            const navLinks = document.querySelector('.nav-links');
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const editProfileBtn = document.getElementById('edit-profile-btn');
+            const editProfileModal = document.getElementById('editProfileModal');
+            const closeModal = editProfileModal.querySelector('.close');
+            const editProfileForm = document.getElementById('edit-profile-form');
+
+            // Mobile menu toggle
+            menuButton.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Tab functionality
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Edit profile modal
+            editProfileBtn.onclick = function() {
+                editProfileModal.style.display = "block";
+                populateEditForm();
+            }
+
+            closeModal.onclick = function() {
+                editProfileModal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == editProfileModal) {
+                    editProfileModal.style.display = "none";
+                }
+            }
+
+            // Populate edit form with current profile data
+            function populateEditForm() {
+                document.getElementById('edit-name').value = document.getElementById('profile-name').textContent;
+                document.getElementById('edit-email').value = document.getElementById('profile-email').textContent;
+                document.getElementById('edit-birthdate').value = '1990-01-01'; // Example date, replace with actual data
+                document.getElementById('edit-phone').value = document.getElementById('profile-phone').textContent;
+                document.getElementById('edit-address').value = document.getElementById('profile-address').textContent;
+            }
+
+            // Handle form submission
+            editProfileForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                updateProfile();
+                editProfileModal.style.display = "none";
+            });
+
+            // Update profile with form data
+            function updateProfile() {
+                document.getElementById('profile-name').textContent = document.getElementById('edit-name').value;
+                document.getElementById('profile-email').textContent = document.getElementById('edit-email').value;
+                document.getElementById('profile-phone').textContent = document.getElementById('edit-phone').value;
+                document.getElementById('profile-address').textContent = document.getElementById('edit-address').value;
+                
+                // Update birthdate in a more readable format
+                const birthdate = new Date(document.getElementById('edit-birthdate').value);
+                document.getElementById('profile-birthdate').textContent = birthdate.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+            }
+
+            // Sample data for appointments, tests, and resources
+            const appointments = [
+                { doctor: "Dra. María González", date: "2023-05-15", time: "10:00" },
+                { doctor: "Dr. Carlos Rodríguez", date: "2023-05-22", time: "15:00" }
+            ];
+
+            const tests = [
+                { name: "Evaluación de Ansiedad", date: "2023-04-05" },
+                { name: "Test de Depresión", date: "2023-03-20" }
+            ];
+
+            const resources = [
+                { title: "Técnicas de Relajación", type: "Artículo" },
+                { title: "Meditación Guiada", type: "Video" }
+            ];
+
+            // Populate lists
+            function populateList(data, listId, createItemFunc) {
+                const list = document.getElementById(listId);
+                list.innerHTML = '';
+                data.forEach(item => {
+                    list.appendChild(createItemFunc(item));
+                });
+            }
+
+            function createAppointmentItem(appointment) {
+                const li = document.createElement('li');
+                li.className = 'appointment-item';
+                li.innerHTML = `
+                    <strong>${appointment.doctor}</strong>
+                    <p>Fecha: ${new Date(appointment.date).toLocaleDateString('es-ES')}</p>
+                    <p>Hora: ${appointment.time}</p>
+                    <button onclick="alert('Detalles de la cita')">Ver detalles</button>
+                `;
+                return li;
+            }
+
+            function createTestItem(test) {
+                const li = document.createElement('li');
+                li.className = 'test-item';
+                li.innerHTML = `
+                    <strong>${test.name}</strong>
+                    <p>Fecha: ${new Date(test.date).toLocaleDateString('es-ES')}</p>
+                    <button onclick="alert('Resultados del test')">Ver resultados</button>
+                `;
+                return li;
+            }
+
+            function createResourceItem(resource) {
+                const li = document.createElement('li');
+                li.className = 'resource-item';
+                li.innerHTML = `
+                    <strong>${resource.title}</strong>
+                    <p>Tipo: ${resource.type}</p>
+                    <button onclick="alert('Abrir recurso')">
+                        ${resource.type === 'Artículo' ? 'Leer' : 'Ver'}
+                    </button>
+                `;
+                return li;
+            }
+
+            populateList(appointments, 'appointment-list', createAppointmentItem);
+            populateList(tests, 'test-list', createTestItem);
+            populateList(resources, 'resource-list', createResourceItem);
+
+            // Handle notification toggles
+            const notificationToggles = document.querySelectorAll('#notifications input[type="checkbox"]');
+            notificationToggles.forEach(toggle => {
+                toggle.addEventListener('change', function() {
+                    alert(`Notificaciones de ${this.id.split('-')[0]} ${this.checked ? 'activadas' : 'desactivadas'}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

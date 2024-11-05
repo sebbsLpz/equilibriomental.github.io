@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pruebas Psicológicas - Equilibrio Mental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #45D390;
+            --background-color: #F0F4F8;
+            --text-color: #2C3E50;
+            --gray-color: #6c757d;
+            --white: #FFFFFF;
+            --light-gray: #e9ecef;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--white);
+            background-color: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .profile-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .profile-link svg {
+            margin-right: 0.5rem;
+        }
+
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--gray-color);
+        }
+
+        .tests-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .test-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 0.8rem; /*Cambiar tamaño de las tarjetas (1,5rem por defecto) */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            min-height: 300px;
+        }
+
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .test-card h3 {
+            color: var(--primary-color);
+            margin-top: 10px;
+            font-size: 1.3rem;
+        }
+
+        .test-card p {
+            color: var(--gray-color);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .start-test-btn {
+            display: inline-block;
+            padding: 0.75rem 1rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .start-test-btn:hover {
+            background-color: #3a7bc8;
+        }
+
+        #testModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 700px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .close {
+            color: var(--gray-color);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        #testContent h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        #testInstructions {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        #testQuestions {
+            margin-bottom: 1.5rem;
+        }
+
+        .question {
+            margin-bottom: 1.5rem;
+            background-color: var(--white);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .question p {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .question label {
+            display: block;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .question label:hover {
+            background-color: #d1d9e6;
+        }
+
+        .question input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+
+        #submitTest {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #submitTest:hover {
+            background-color: #3a7bc8;
+        }
+
+        #testResults {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            display: none;
+        }
+
+        #testResults h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .result-bar {
+            height: 20px;
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }
+
+        .result-fill {
+            height: 100%;
+            background-color: var(--secondary-color);
+            width: 0;
+            transition: width 1s ease-in-out;
+        }
+
+        #progressBar {
+            width: 100%;
+            height: 10px;
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        #progressBarFill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        footer {
+            background-color: var(--text-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--white);
+                padding: 1rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .tests-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="../index.html" class="logo">Equilibrio Mental</a>
+            <div class="nav-links">
+                <a href="psicologos.html">Psicólogos</a>
+                <a href="citas.html">Citas</a>
+                <a href="pruebas-psicologicas.html" class="active">Pruebas</a>
+                <a href="educacion.html">Educación</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+            <a href="mi-perfil.html" class="profile-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+                Tu Perfil
+            </a>
+            <button class="menu-button" aria-label="Menú">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Pruebas Psicológicas</h1>
+        <p class="intro">Explorá aspectos de tu bienestar mental a través de nuestras pruebas psicológicas. Estas evaluaciones no sustituyen una consulta profesional, pero pueden ayudarte a identificar temas relevantes para discutir con un psicólogo.</p>
+
+        <div class="tests-container">
+            <div class="test-card">
+                <h3>Test de Rorschach</h3>
+                <p>Evaluación de interpretación de manchas de tinta para explorar aspectos de la personalidad.</p>
+                <a href="#" class="start-test-btn" data-test="rorschach">Comenzar Test</a>
+            </div>
+            <div class="test-card">
+                <h3>Inventario de Ansiedad de Beck (BAI)</h3>
+                <p>Mide los niveles de ansiedad del usuario.</p>
+                <a href="#" class="start-test-btn" data-test="ansiedad">Comenzar Test</a>
+            </div>
+            <div class="test-card">
+                <h3>Inventario de Depresión de Beck (BDI)</h3>
+                <p>Evaluación de síntomas depresivos.</p>
+                <a href="#" class="start-test-btn" data-test="depresion">Comenzar Test</a>
+            </div>
+            <div class="test-card">
+                <h3>Escala de Estrés Percibido (PSS)</h3>
+                <p>Mide el nivel de estrés percibido por el usuario.</p>
+                <a href="#" class="start-test-btn" data-test="estres">Comenzar Test</a>
+            </div>
+            <div class="test-card">
+                <h3>Cuestionario de Personalidad (16PF)</h3>
+                <p>Evalúa 16 rasgos de personalidad fundamentales.</p>
+                <a href="#" class="start-test-btn" data-test="personalidad">Comenzar  Test</a>
+            </div>
+            <div class="test-card">
+                <h3>Test de Autoestima de Rosenberg</h3>
+                <p>Mide el nivel de autoestima del usuario.</p>
+                <a href="#" class="start-test-btn" data-test="autoestima">Comenzar Test</a>
+            </div>
+            <div class="test-card">
+                <h3>Test de TDAH para Adultos</h3>
+                <p>Evalúa síntomas del Trastorno por Déficit de Atención e Hiperactividad en adultos.</p>
+                <a href="#" class="start-test-btn" data-test="tdah_adultos">Comenzar Test</a>
+            </div>
+            <div class="test-card">
+                <h3>Escala de Evaluación del TOC</h3>
+                <p>Evalúa síntomas del Trastorno Obsesivo-Compulsivo.</p>
+                <a href="#" class="start-test-btn" data-test="toc">Comenzar Test</a>
+            </div>
+            <div class="test-card">
+                <h3>Test de Trastorno de Estrés Postraumático (TEPT)</h3>
+                <p>Evalúa síntomas relacionados con el Trastorno de Estrés Postraumático.</p>
+                <a href="#" class="start-test-btn" data-test="tept">Comenzar Test</a>
+            </div>
+            <div class="test-card">
+                <h3>Test de Habilidades Sociales</h3>
+                <p>Evalúa las habilidades sociales y la competencia social del usuario.</p>
+                <a href="#" class="start-test-btn" data-test="habilidades_sociales">Comenzar Test</a>
+            </div>
+            <div class="test-card">
+                <h3>Test de Inteligencia Emocional</h3>
+                <p>Evalúa la capacidad de reconocer, entender y manejar las emociones propias y ajenas.</p>
+                <a href="#" class="start-test-btn" data-test="inteligencia_emocional">Comenzar Test</a>
+            </div>
+        </div>
+    </main>
+
+    <div id="testModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="testContent">
+                <h2 id="testTitle"></h2>
+                <div id="testInstructions"></div>
+                <div id="progressBar">
+                    <div id="progressBarFill"></div>
+                </div>
+                <div id="testQuestions"></div>
+                <button id="submitTest" style="display: none;">Enviar Respuestas</button>
+                <div id="testResults"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Equilibrio Mental. Todos los derechos reservados.</p>
+            <div>
+                <a href="/privacidad">Política de Privacidad</a> |
+                <a href="/terminos">Términos de Servicio</a>
+            </div>
+            <p>Estas pruebas son solo para fines informativos y no sustituyen un diagnóstico profesional.</p>
+            <p>Si tienes preguntas, <a href="contacto.html">contáctanos</a>.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.querySelector('.menu-button');
+            const navLinks = document.querySelector('.nav-links');
+            const modal = document.getElementById('testModal');
+            const closeBtn = document.getElementsByClassName('close')[0];
+            const testButtons = document.querySelectorAll('.start-test-btn');
+            const testContent = document.getElementById('testContent');
+            const testTitle = document.getElementById('testTitle');
+            const testInstructions = document.getElementById('testInstructions');
+            const testQuestions = document.getElementById('testQuestions');
+            const submitTestBtn = document.getElementById('submitTest');
+            const testResults = document.getElementById('testResults');
+            const progressBarFill = document.getElementById('progressBarFill');
+
+            menuButton.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Test data
+            const tests = {
+                rorschach: {
+                    title: "Test de Rorschach",
+                    instructions: "Observa cada imagen y selecciona lo que más se asemeje a lo que ves. No hay respuestas correctas o incorrectas.",
+                    questions: [
+                        {
+                            type: "image",
+                            src: "https://example.com/rorschach1.jpg",
+                            question: "¿Qué ves en esta imagen? (Lámina I)",
+                            options: ["Murciélago", "Mariposa", "Pelvis", "Máscara"]
+                        },
+                        {
+                            type: "image",
+                            src: "https://example.com/rorschach2.jpg",
+                            question: "¿Qué ves en esta imagen? (Lámina II)",
+                            options: ["Dos personas", "Animales", "Sangre", "Órganos internos"]
+                        },
+                        {
+                            type: "image",
+                            src: "https://example.com/rorschach3.jpg",
+                            question: "¿Qué ves en esta imagen? (Lámina III)",
+                            options: ["Dos personas", "Mariposa", "Órganos internos", "Cangrejo"]
+                        },
+                        {
+                            type: "image",
+                            src: "https://example.com/rorschach4.jpg",
+                            question: "¿Qué ves en esta imagen? (Lámina IV)",
+                            options: ["Monstruo", "Árbol", "Piel de animal", "Botas"]
+                        },
+                        {
+                            type: "image",
+                            src: "https://example.com/rorschach5.jpg",
+                            question: "¿Qué ves en esta imagen? (Lámina V)",
+                            options: ["Murciélago", "Mariposa", "Ave", "Persona con alas"]
+                        },
+                        {
+                            type: "image",
+                            src: "https://example.com/rorschach6.jpg",
+                            question: "¿Qué ves en esta imagen? (Lámina VI)",
+                            options: ["Piel de animal", "Tótem", "Genitales", "Barco"]
+                        },
+                        {
+                            type: "image",
+                            src: "https://example.com/rorschach7.jpg",
+                            question: "¿Qué ves en esta imagen? (Lámina VII)",
+                            options: ["Nubes", "Cabezas de mujeres", "Conejos", "Rocas"]
+                        },
+                        {
+                            type: "image",
+                            src: "https://example.com/rorschach8.jpg",
+                            question: "¿Qué ves en esta imagen? (Lámina VIII)",
+                            options: ["Animales", "Bandera", "Montañas", "Órganos internos"]
+                        },
+                        {
+                            type: "image",
+                            src: "https://example.com/rorschach9.jpg",
+                            question: "¿Qué ves en esta imagen? (Lámina IX)",
+                            options: ["Brujas", "Fuego", "Flores", "Feto"]
+                        },
+                        {
+                            type: "image",
+                            src: "https://example.com/rorschach10.jpg",
+                            question: "¿Qué ves en esta imagen? (Lámina X)",
+                            options: ["Cangrejos", "Flores", "Arañas", "Fuegos artificiales"]
+                        }
+                    ]
+                },
+                ansiedad: {
+                    title: "Inventario de Ansiedad de Beck (BAI)",
+                    instructions: "Indica con qué frecuencia has experimentado cada síntoma en la última semana.",
+                    questions: [
+                        {
+                            type: "radio",
+                            question: "Torpe o entumecido",
+                            options: ["En absoluto", "Levemente", "Moderadamente", "Severamente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Acalorado",
+                            options: ["En absoluto", "Levemente", "Moderadamente", "Severamente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Con temblor en las piernas",
+                            options: ["En absoluto", "Levemente", "Moderadamente", "Severamente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Incapaz de relajarse",
+                            options: ["En absoluto", "Levemente", "Moderadamente", "Severamente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Con temor a que ocurra lo peor",
+                            options: ["En absoluto", "Levemente", "Moderadamente", "Severamente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Mareado, o que se le va la cabeza",
+                            options: ["En absoluto", "Levemente", "Moderadamente", "Severamente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Con latidos del corazón fuertes y acelerados",
+                            options: ["En absoluto", "Levemente", "Moderadamente", "Severamente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Inestable",
+                            options: ["En absoluto", "Levemente", "Moderadamente", "Severamente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Atemorizado o asustado",
+                            options: ["En absoluto", "Levemente", "Moderadamente", "Severamente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Nervioso",
+                            options: ["En absoluto", "Levemente", "Moderadamente", "Severamente"]
+                        }
+                    ]
+                },
+                depresion: {
+                    title: "Inventario de Depresión de Beck (BDI)",
+                    instructions: "Indica cómo te has sentido durante las últimas dos semanas.",
+                    questions: [
+                        {
+                            type: "radio",
+                            question: "Tristeza",
+                            options: ["No me siento triste", "Me siento triste gran parte del tiempo", "Me siento triste todo el tiempo", "Me siento tan triste o soy tan infeliz que no puedo soportarlo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Pesimismo",
+                            options: ["No estoy desalentado respecto del mi futuro", "Me siento más desalentado respecto de mi futuro que lo que solía estarlo", "No espero que las cosas funcionen para mí", "Siento que no hay esperanza para mi futuro y que sólo puede empeorar"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Fracaso",
+                            options: ["No me siento como un fracasado", "He fracasado más de lo que hubiera debido", "Cuando miro hacia atrás, veo muchos fracasos", "Siento que como persona soy un fracaso total"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Pérdida de Placer",
+                            options: ["Obtengo tanto placer como siempre por las cosas de las que disfruto", "No disfruto tanto de las cosas como solía hacerlo", "Obtengo muy poco placer de las cosas que solía disfrutar", "No puedo obtener ningún placer de las cosas que solía disfrutar"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Sentimientos de Culpa",
+                            options: ["No me siento particularmente culpable", "Me siento culpable respecto de varias cosas que he hecho o que debería haber hecho", "Me siento bastante culpable la mayor parte del tiempo", "Me siento culpable todo el tiempo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Sentimientos de Castigo",
+                            options: ["No siento que este siendo castigado", "Siento que tal vez pueda ser castigado", "Espero ser castigado", "Siento que estoy siendo castigado"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Disconformidad con uno mismo",
+                            options: ["Siento acerca de mi lo mismo que siempre", "He perdido la confianza en mí mismo", "Estoy decepcionado conmigo mismo", "No me gusto a mí mismo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Autocrítica",
+                            options: ["No me critico ni me culpo más de lo habitual", "Estoy más crítico conmigo mismo de lo que solía estarlo", "Me critico a mí mismo por todos mis errores", "Me culpo a mí mismo por todo lo malo que sucede"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Pensamientos o Deseos Suicidas",
+                            options: ["No tengo ningún pensamiento de matarme", "He tenido pensamientos de matarme, pero no lo haría", "Querría matarme", "Me mataría si tuviera la oportunidad de hacerlo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Llanto",
+                            options: ["No lloro más de lo que solía hacerlo", "Lloro más de lo que solía hacerlo", "Lloro por cualquier pequeñez", "Siento ganas de llorar pero no puedo"]
+                        }
+                    ]
+                },
+                estres: {
+                    title: "Escala de Estrés Percibido (PSS)",
+                    instructions: "Indica con qué frecuencia te has sentido de la siguiente manera durante el último mes.",
+                    questions: [
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia has estado afectado por algo que ha ocurrido inesperadamente?",
+                            options: ["Nunca", "Casi nunca", "De vez en cuando", "A menudo", "Muy a menudo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia te has sentido incapaz de controlar las cosas importantes de tu vida?",
+                            options: ["Nunca", "Casi nunca", "De vez en cuando", "A menudo", "Muy a menudo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia te has sentido nervioso o estresado?",
+                            options: ["Nunca", "Casi nunca", "De vez en cuando", "A menudo", "Muy a menudo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia has manejado con éxito los pequeños problemas irritantes de la vida?",
+                            options: ["Nunca", "Casi nunca", "De vez en cuando", "A menudo", "Muy a menudo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia has sentido que has afrontado efectivamente los cambios importantes que han estado ocurriendo en tu vida?",
+                            options: ["Nunca", "Casi nunca", "De vez en cuando", "A menudo", "Muy a menudo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia has estado seguro sobre tu capacidad para manejar tus problemas personales?",
+                            options: ["Nunca", "Casi nunca", "De vez en cuando", "A menudo", "Muy a menudo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia has sentido que las cosas te van bien?",
+                            options: ["Nunca", "Casi nunca", "De vez en cuando", "A menudo", "Muy a menudo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia has sentido que no podías afrontar todas las cosas que tenías que hacer?",
+                            options: ["Nunca", "Casi nunca", "De vez en cuando", "A menudo", "Muy a menudo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia has podido controlar las dificultades de tu vida?",
+                            options: ["Nunca", "Casi nunca", "De vez en cuando", "A menudo", "Muy a menudo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia has sentido que tienes el control de todo?",
+                            options: ["Nunca", "Casi nunca", "De vez en cuando", "A menudo", "Muy a menudo"]
+                        }
+                    ]
+                },
+                personalidad: {
+                    title: "Cuestionario de Personalidad (16PF)",
+                    instructions: "Responde a las siguientes preguntas eligiendo la opción que mejor te describa.",
+                    questions: [
+                        {
+                            type: "radio",
+                            question: "Me considero una persona...",
+                            options: ["Reservada", "Moderadamente sociable", "Muy sociable"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Mi capacidad para resolver problemas es...",
+                            options: ["Baja", "Media", "Alta"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Ante situaciones emocionales, suelo ser...",
+                            options: ["Muy estable", "Moderadamente estable", "Inestable"]
+                        },
+                        {
+                            type: "radio",
+                            question: "En general, soy una persona...",
+                            options: ["Sumisa", "Moderadamente asertiva", "Dominante"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Me considero...",
+                            options: ["Serio", "Moderadamente alegre", "Muy alegre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Respecto a las normas, soy...",
+                            options: ["Inconformista", "Moderadamente conformista", "Muy conformista"]
+                        },
+                        {
+                            type: "radio",
+                            question: "En situaciones sociales, suelo ser...",
+                            options: ["Tímido", "Moderadamente atrevido", "Muy atrevido"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Emocionalmente, me considero...",
+                            options: ["Duro", "Moderadamente sensible", "Muy sensible"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Generalmente soy una persona...",
+                            options: ["Confiada", "Moderadamente suspicaz", "Muy suspicaz"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Me considero una persona...",
+                            options: ["Práctica", "Moderadamente imaginativa", "Muy imaginativa"]
+                        }
+                    ]
+                },
+                autoestima: {
+                    title: "Test de Autoestima de Rosenberg",
+                    instructions: "Indica tu grado de acuerdo o desacuerdo con cada afirmación.",
+                    questions: [
+                        {
+                            type: "radio",
+                            question: "Siento que soy una persona digna de aprecio, al menos en igual medida que los demás.",
+                            options: ["Muy en desacuerdo", "En desacuerdo", "De acuerdo", "Muy de acuerdo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Estoy convencido de que tengo cualidades buenas.",
+                            options: ["Muy en desacuerdo", "En desacuerdo", "De acuerdo", "Muy de acuerdo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Soy capaz de hacer las cosas tan bien como la mayoría de la gente.",
+                            options: ["Muy en desacuerdo", "En desacuerdo", "De acuerdo", "Muy de acuerdo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Tengo una actitud positiva hacia mí mismo/a.",
+                            options: ["Muy en desacuerdo", "En desacuerdo", "De acuerdo", "Muy de acuerdo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "En general estoy satisfecho/a de mí mismo/a.",
+                            options: ["Muy en desacuerdo", "En desacuerdo", "De acuerdo", "Muy de acuerdo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Siento que no tengo mucho de lo que estar orgulloso/a.",
+                            options: ["Muy en desacuerdo", "En desacuerdo", "De acuerdo", "Muy de acuerdo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "En general, me inclino a pensar que soy un fracasado/a.",
+                            options: ["Muy en desacuerdo", "En desacuerdo", "De acuerdo", "Muy de acuerdo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Me gustaría poder sentir más respeto por mí mismo/a.",
+                            options: ["Muy en desacuerdo", "En desacuerdo", "De acuerdo", "Muy de acuerdo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Hay veces que realmente pienso que soy un inútil.",
+                            options: ["Muy en desacuerdo", "En desacuerdo", "De acuerdo", "Muy de acuerdo"]
+                        },
+                        {
+                            type: "radio",
+                            question: "A veces creo que no soy buena persona.",
+                            options: ["Muy en desacuerdo", "En desacuerdo", "De acuerdo", "Muy de acuerdo"]
+                        }
+                    ]
+                },
+                tdah_adultos: {
+                    title: "Test de TDAH para Adultos",
+                    instructions: "Indica con qué frecuencia has experimentado los siguientes síntomas en los últimos 6 meses.",
+                    questions: [
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia tienes problemas para terminar los detalles finales de un proyecto, una vez que las partes más desafiantes han sido hechas?",
+                            options: ["Nunca", "Raramente", "A veces", "Con frecuencia", "Muy frecuentemente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia tienes dificultad para ordenar las cosas cuando estás haciendo una tarea que requiere organización?",
+                            options: ["Nunca", "Raramente", "A veces", "Con frecuencia", "Muy frecuentemente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia tienes problemas para recordar citas u obligaciones?",
+                            options: ["Nunca", "Raramente", "A veces", "Con frecuencia", "Muy frecuentemente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Cuando tienes una tarea que requiere mucha concentración, ¿con qué frecuencia evitas o retrasas empezarla?",
+                            options: ["Nunca", "Raramente", "A veces", "Con frecuencia", "Muy frecuentemente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia mueves o retuerces tus manos o pies cuando estás sentado por mucho tiempo?",
+                            options: ["Nunca", "Raramente", "A veces", "Con frecuencia", "Muy frecuentemente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia te sientes excesivamente activo e impulsado a hacer cosas, como si te moviera un motor?",
+                            options: ["Nunca", "Raramente", "A veces", "Con frecuencia", "Muy frecuentemente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia cometes errores por descuido cuando trabajas en un proyecto aburrido o difícil?",
+                            options: ["Nunca", "Raramente", "A veces", "Con frecuencia", "Muy frecuentemente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia tienes dificultad para mantener tu atención cuando estás haciendo trabajos aburridos o repetitivos?",
+                            options: ["Nunca", "Raramente", "A veces", "Con frecuencia", "Muy frecuentemente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia tienes dificultad para concentrarte en lo que la gente te dice, aun cuando te están hablando directamente?",
+                            options: ["Nunca", "Raramente", "A veces", "Con frecuencia", "Muy frecuentemente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia extravías o tienes dificultad para encontrar cosas en la casa o en el trabajo?",
+                            options: ["Nunca", "Raramente", "A veces", "Con frecuencia", "Muy frecuentemente"]
+                        }
+                    ]
+                },
+                toc: {
+                    title: "Escala de Evaluación del TOC",
+                    instructions: "Indica con qué frecuencia has experimentado los siguientes pensamientos o comportamientos en el último mes.",
+                    questions: [
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia te sientes obligado a comprobar cosas repetidamente (por ejemplo, si has cerrado la puerta, apagado la estufa, etc.)?",
+                            options: ["Nunca", "Raramente", "A veces", "Frecuentemente", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia tienes pensamientos desagradables que no puedes quitarte de la cabeza?",
+                            options: ["Nunca", "Raramente", "A veces", "Frecuentemente", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia te lavas las manos o limpias más de lo necesario?",
+                            options: ["Nunca", "Raramente", "A veces", "Frecuentemente", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia sientes la necesidad de contar o hacer las cosas en un cierto orden?",
+                            options: ["Nunca", "Raramente", "A veces", "Frecuentemente", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia te preocupas excesivamente por la contaminación o los gérmenes?",
+                            options: ["Nunca", "Raramente", "A veces", "Frecuentemente", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia tienes dificultades para tomar decisiones simples en la vida cotidiana?",
+                            options: ["Nunca", "Raramente", "A veces", "Frecuentemente", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia sientes la necesidad de organizar las cosas de una manera específica?",
+                            options: ["Nunca", "Raramente", "A veces", "Frecuentemente", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia te preocupas por haber cometido errores o haber hecho algo malo?",
+                            options: ["Nunca", "Raramente", "A veces", "Frecuentemente", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia evitas ciertas situaciones debido a tus obsesiones o compulsiones?",
+                            options: ["Nunca", "Raramente", "A veces", "Frecuentemente", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Con qué frecuencia estos pensamientos o comportamientos interfieren con tu vida diaria o tus relaciones?",
+                            options: ["Nunca", "Raramente", "A veces", "Frecuentemente", "Siempre"]
+                        }
+                    ]
+                },
+                tept: {
+                    title: "Test de Trastorno de Estrés Postraumático (TEPT)",
+                    instructions: "Indica con qué frecuencia has experimentado los siguientes síntomas en el último mes.",
+                    questions: [
+                        {
+                            type: "radio",
+                            question: "¿Has tenido recuerdos, pensamientos o imágenes dolorosas recurrentes de una experiencia estresante del pasado?",
+                            options: ["Nada en absoluto", "Un poco", "Moderadamente", "Bastante", "Extremadamente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Has tenido sueños perturbadores repetidos de una experiencia estresante del pasado?",
+                            options: ["Nada en absoluto", "Un poco", "Moderadamente", "Bastante", "Extremadamente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Has actuado o te has sentido repentinamente como si la experiencia estresante estuviera ocurriendo de nuevo (como si la estuvieras reviviendo)?",
+                            options: ["Nada en absoluto", "Un poco", "Moderadamente", "Bastante", "Extremadamente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Te has sentido muy alterado cuando algo te ha recordado la experiencia estresante?",
+                            options: ["Nada en absoluto", "Un poco", "Moderadamente", "Bastante", "Extremadamente"]
+                        },
+                        {
+                            type: "radio",
+                            question: "¿Has tenido reacciones físicas (por ejemplo, latidos rápidos del corazón, dificultad para respirar, sudoración) cuando algo te ha recordado la experiencia estresante?",
+                            options: ["Nada en absoluto", "Un poco", "Moderadamente", "Bastante", "Extremadamente"]
+                        }
+                    ]
+                },
+                habilidades_sociales: {
+                    title: "Test de Habilidades Sociales",
+                    instructions: "Indica con qué frecuencia te sientes cómodo en las siguientes situaciones sociales.",
+                    questions: [
+                        {
+                            type: "radio",
+                            question: "Iniciar una conversación con alguien que no conoces",
+                            options: ["Nunca", "Raramente", "A veces", "A menudo", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Expresar tus opiniones, incluso cuando son diferentes a las de los demás",
+                            options: ["Nunca", "Raramente", "A veces", "A menudo", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Decir 'no' cuando alguien te pide que hagas algo que no quieres hacer",
+                            options: ["Nunca", "Raramente", "A veces", "A menudo", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Hacer cumplidos a otras personas",
+                            options: ["Nunca", "Raramente", "A veces", "A menudo", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Pedir ayuda cuando la necesitas",
+                            options: ["Nunca", "Raramente", "A veces", "A menudo", "Siempre"]
+                        }
+                    ]
+                },
+                inteligencia_emocional: {
+                    title: "Test de Inteligencia Emocional",
+                    instructions: "Indica con qué frecuencia experimentas las siguientes situaciones.",
+                    questions: [
+                        {
+                            type: "radio",
+                            question: "Puedo reconocer mis emociones mientras las estoy experimentando",
+                            options: ["Nunca", "Raramente", "A veces", "A menudo", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Soy capaz de controlar mis emociones en situaciones difíciles",
+                            options: ["Nunca", "Raramente", "A veces", "A menudo", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Puedo entender cómo se sienten los demás",
+                            options: ["Nunca", "Raramente", "A veces", "A menudo", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Soy capaz de motivarme a mí mismo para alcanzar mis metas",
+                            options: ["Nunca", "Raramente", "A veces", "A menudo", "Siempre"]
+                        },
+                        {
+                            type: "radio",
+                            question: "Puedo manejar conflictos de manera efectiva",
+                            options: ["Nunca", "Raramente", "A veces", "A menudo", "Siempre"]
+                        }
+                    ]
+                }
+            };
+
+            let currentTest = null;
+            let currentQuestionIndex = 0;
+            let userAnswers = [];
+
+            function openModal(test) {
+                currentTest = tests[test];
+                currentQuestionIndex = 0;
+                userAnswers = [];
+                testTitle.textContent = currentTest.title;
+                testInstructions.textContent = currentTest.instructions;
+                showQuestion();
+                modal.style.display = "block";
+                submitTestBtn.style.display = "none";
+                testResults.style.display = "none";
+            }
+
+            function showQuestion() {
+                const question = currentTest.questions[currentQuestionIndex];
+                let html = '';
+
+                if (question.type === "image") {
+                    html = `
+                        <div class="question">
+                            <img src="${question.src}" alt="Imagen de prueba">
+                            <p>${question.question}</p>
+                            ${question.options.map((option, index) => `
+                                <label>
+                                    <input type="radio" name="q${currentQuestionIndex}" value="${index}">
+                                    ${option}
+                                </label>
+                            `).join('')}
+                        </div>
+                    `;
+                } else if (question.type === "radio") {
+                    html = `
+                        <div class="question">
+                            <p>${question.question}</p>
+                            ${question.options.map((option, index) => `
+                                <label>
+                                    <input type="radio" name="q${currentQuestionIndex}" value="${index}">
+                                    ${option}
+                                </label>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+
+                testQuestions.innerHTML = html;
+
+                updateProgressBar();
+
+                if (currentQuestionIndex === currentTest.questions.length - 1) {
+                    submitTestBtn.style.display = "block";
+                } else {
+                    const nextButton = document.createElement('button');
+                    nextButton.textContent = "Siguiente";
+                    nextButton.onclick = nextQuestion;
+                    testQuestions.appendChild(nextButton);
+                }
+            }
+
+            function nextQuestion() {
+                const selectedAnswer = document.querySelector(`input[name="q${currentQuestionIndex}"]:checked`);
+                if (selectedAnswer) {
+                    userAnswers.push(parseInt(selectedAnswer.value));
+                    currentQuestionIndex++;
+                    showQuestion();
+                } else {
+                    alert("Por favor, selecciona una respuesta antes de continuar.");
+                }
+            }
+
+            function updateProgressBar() {
+                const progress = ((currentQuestionIndex + 1) / currentTest.questions.length) * 100;
+                progressBarFill.style.width = `${progress}%`;
+            }
+
+            function submitTest() {
+                const selectedAnswer = document.querySelector(`input[name="q${currentQuestionIndex}"]:checked`);
+                if (selectedAnswer) {
+                    userAnswers.push(parseInt(selectedAnswer.value));
+                }
+
+                let result = calculateTestResult();
+                displayTestResult(result);
+            }
+
+            function calculateTestResult() {
+                let score = 0;
+                for (let answer of userAnswers) {
+                    score += answer;
+                }
+                let maxScore = (currentTest.questions.length - 1) * (currentTest.questions[0].options.length - 1);
+                let percentage = (score / maxScore) * 100;
+
+                let severity;
+                if (percentage < 25) {
+                    severity = "bajo";
+                } else if (percentage < 50) {
+                    severity = "moderado bajo";
+                } else if (percentage < 75) {
+                    severity = "moderado alto";
+                } else {
+                    severity = "alto";
+                }
+
+                return {
+                    score: score,
+                    maxScore: maxScore,
+                    percentage: percentage,
+                    severity: severity
+                };
+            }
+
+            function displayTestResult(result) {
+                testResults.innerHTML = `
+                    <h3>Resultados del Test</h3>
+                    <p>Has completado el test de ${currentTest.title}.</p>
+                    <p>Tu puntuación es de ${result.score} sobre ${result.maxScore}, lo que indica un nivel ${result.severity} de ${currentTest.title.toLowerCase()}.</p>
+                    <p>Se ha enviado un informe detallado a tu correo electrónico.</p>
+                    <h4>Recomendaciones:</h4>
+                    <ul>
+                        <li>Considera programar una cita con uno de nuestros psicólogos para discutir estos resultados en detalle.</li>
+                        <li>Explora nuestra sección de "Educación en Salud Mental" para obtener más información sobre ${currentTest.title}.</li>
+                        <li>Practica técnicas de autocuidado y manejo del estrés diariamente.</li>
+                    </ul>
+                    <p><strong>Recuerda:</strong> Este test es solo una herramienta de evaluación inicial y no sustituye un diagnóstico profesional. Si tienes preocupaciones sobre tu salud mental, te recomendamos que consultes con un profesional de la salud mental.</p>
+                `;
+                testQuestions.style.display = "none";
+                submitTestBtn.style.display = "none";
+                testResults.style.display = "block";
+            }
+
+            testButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const test = e.target.getAttribute('data-test');
+                    openModal(test);
+                });
+            });
+
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            submitTestBtn.addEventListener('click', submitTest);
+        });
+    </script>
+</body>
+</html>

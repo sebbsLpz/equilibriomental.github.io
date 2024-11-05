@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educación en Salud Mental - Equilibrio Mental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #45D390;
+            --background-color: #F0F4F8;
+            --text-color: #2C3E50;
+            --gray-color: #6c757d;
+            --white: #FFFFFF;
+            --light-gray: #e9ecef;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+            background-color: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .profile-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .profile-link svg {
+            margin-right: 0.5rem;
+        }
+
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--gray-color);
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .category {
+            background-color: var(--light-gray);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .category:hover, .category.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-color);
+            width: 20px;
+            height: 20px;
+        }
+
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .resource-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .resource-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .resource-content {
+            padding: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-description {
+            font-size: 0.9rem;
+            color: var(--gray-color);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--gray-color);
+        }
+
+        .resource-duration {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .resource-duration svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .resource-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+
+        .action-button:hover {
+            color: var(--secondary-color);
+        }
+
+        .action-button.read {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .action-button svg {
+            width: 20px;
+            height: 20px;
+            transition: fill 0.3s ease;
+        }
+
+        .action-button.active svg {
+            fill: var(--primary-color);
+        }
+
+        .recommendations {
+            margin-top: 3rem;
+        }
+
+        .recommendations h2 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 70%;
+            max-width: 800px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+        }
+
+        #modalContent {
+            margin-top: 20px;
+        }
+
+        #modalContent iframe {
+            width: 100%;
+            height: 400px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--success-color);
+            color: var(--white);
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        footer {
+            background-color: var(--text-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--white);
+                padding: 1rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .resources {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="../index.html" class="logo">Equilibrio Mental</a>
+            <div class="nav-links">
+                <a href="psicologos.html">Psicólogos</a>
+                <a href="citas.html">Citas</a>
+                <a href="pruebas.html">Pruebas</a>
+                <a href="educacion.html">Educación</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+            <a href="mi-perfil.html" class="profile-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+                Tu Perfil
+            </a>
+            <button class="menu-button" aria-label="Menú">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Educación en Salud Mental</h1>
+        <p class="intro">Aprendé sobre distintos trastornos, técnicas de autocuidado y estrategias para mejorar tu salud mental. El conocimiento es una herramienta poderosa para tu bienestar personal.</p>
+
+        <div class="categories">
+            <div class="category" data-category="ansiedad">Trastornos de Ansiedad</div>
+            <div class="category" data-category="depresion">Depresión</div>
+            <div class="category" data-category="tept">Trastorno de Estrés Postraumático (TEPT)</div>
+            <div class="category" data-category="mindfulness">Mindfulness y Técnicas de Relajación</div>
+            <div class="category" data-category="autocuidado">Autocuidado y Hábitos Saludables</div>
+            <div class="category" data-category="tdah">TDAH y otros trastornos del desarrollo</div>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Buscar temas o palabras clave...">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="search-icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+        </div>
+
+        <div class="resources">
+            <!-- Resource cards will be dynamically inserted here -->
+        </div>
+
+        <div class="recommendations">
+            <h2>Recomendado para vos</h2>
+            <div class="resources" id="recommendedResources">
+                <!-- Recommended resources will be dynamically inserted here -->
+            </div>
+        
+        </div>
+    </main>
+
+    <div id="resourceModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Equilibrio Mental. Todos los derechos reservados.</p>
+            <div>
+                <a href="/privacidad">Política de Privacidad</a> |
+                <a href="/terminos">Términos de Servicio</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.querySelector('.menu-button');
+            const navLinks = document.querySelector('.nav-links');
+            const categories = document.querySelectorAll('.category');
+            const searchBar = document.querySelector('.search-bar');
+            const resourcesContainer = document.querySelector('.resources');
+            const recommendedResourcesContainer = document.getElementById('recommendedResources');
+            const modal = document.getElementById('resourceModal');
+            const modalContent = document.getElementById('modalContent');
+            const closeModal = document.getElementsByClassName('close')[0];
+            const toast = document.getElementById('toast');
+
+            // Sample resource data (in a real application, this would come from a backend)
+            const resources = [
+                {
+                    id: 1,
+                    title: "Comprendiendo la Ansiedad",
+                    description: "Un artículo detallado sobre los síntomas y causas de la ansiedad.",
+                    image: "https://i.ytimg.com/vi/DH_mELeTykk/maxresdefault.jpg",
+                    type: "article",
+                    category: "ansiedad",
+                    duration: "10 min lectura",
+                    content: "La ansiedad es una respuesta natural del cuerpo ante situaciones de estrés o peligro. Sin embargo, cuando esta respuesta se vuelve excesiva o persistente, puede interferir con la vida diaria. Los síntomas comunes incluyen preocupación constante, inquietud, dificultad para concentrarse y síntomas físicos como taquicardia o sudoración. Es importante buscar ayuda profesional si estos síntomas afectan significativamente tu calidad de vida."
+                },
+                {
+                    id: 2,
+                    title: "Técnicas de Respiración para Reducir el Estrés",
+                    description: "Video guiado con ejercicios de respiración para manejar el estrés.",
+                    image: "https://vidiq-video-thumbnails.s3.us-east-1.amazonaws.com/doZeCiT5Rh8/1bc9b169-f5c6-4f3b-b1fa-a6c3c8bf51f6.jpg",
+                    type: "video",
+                    category: "mindfulness",
+                    duration: "15 min video",
+                    content: '<iframe width="560" height="315" src="https://www.youtube.com/watch?v=doZeCiT5Rh8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
+                },
+                {
+                    id: 3,
+                    title: "Signos de Depresión",
+                    description: "Aprende a reconocer los signos tempranos de la depresión.",
+                    image: "https://i.ytimg.com/vi/RJxd3bBJyMs/maxresdefault.jpg",
+                    type: "article",
+                    category: "depresion",
+                    duration: "8 min lectura",
+                    content: "La depresión es más que simplemente sentirse triste. Los signos comunes incluyen pérdida de interés en actividades que antes disfrutabas, cambios en el apetito o el peso, problemas para dormir o dormir en exceso, fatiga, dificultad para concentrarse, sentimientos de inutilidad o culpa excesiva, y en casos severos, pensamientos de muerte o suicidio. Si experimentas varios de estos síntomas durante más de dos semanas, es importante buscar ayuda profesional."
+                },
+                {
+                    id: 4,
+                    title: "Viviendo con TDAH",
+                    description: "Estrategias prácticas para adultos con TDAH.",
+                    image: "https://i.ytimg.com/vi/cjAYR5JEX14/sddefault.jpg",
+                    type: "article",
+                    category: "tdah",
+                    duration: "12 min lectura",
+                    content: ""
+                },
+                {
+                    id: 5,
+                    title: "Meditación Guiada para Principiantes",
+                    description: "Una introducción suave a la práctica de la meditación.",
+                    image: "https://i.ytimg.com/vi/3oCC4NDgYrY/maxresdefault.jpg",
+                    type: "video",
+                    category: "mindfulness",
+                    duration: "20 min video",
+                    content: '<iframe width="560" height="315" src="https://www.youtube.com/watch?v=3oCC4NDgYrY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
+                },
+                {
+                    id: 6,
+                    title: "Autocuidado en Tiempos Difíciles",
+                    description: "Consejos prácticos para mantener tu bienestar mental durante crisis.",
+                    image: "https://i.ytimg.com/vi/5jqWuEPe47E/maxresdefault.jpg",
+                    type: "article",
+                    category: "autocuidado",
+                    duration: "7 min lectura",
+                    content: "El autocuidado es esencial, especialmente durante tiempos difíciles. Algunas estrategias efectivas incluyen mantener una rutina diaria, practicar ejercicio regularmente, asegurar un sueño adecuado, mantener una dieta balanceada, y reservar tiempo para actividades que disfrutes. También es importante mantenerse conectado con seres queridos, aunque sea virtualmente, y no dudar en buscar apoyo profesional cuando lo necesites. Recuerda, cuidar de ti mismo no es egoísmo, es necesario para tu bienestar general."
+                }
+            ];
+
+            let savedResources = [];
+
+            function renderResources(resourcesArray, container) {
+                container.innerHTML = '';
+                resourcesArray.forEach(resource => {
+                    const card = document.createElement('div');
+                    card.className = 'resource-card';
+                    card.innerHTML = `
+                        <img src="${resource.image}" alt="${resource.title}" class="resource-image">
+                        <div class="resource-content">
+                            <h3 class="resource-title">${resource.title}</h3>
+                            <p class="resource-description">${resource.description}</p>
+                            <div class="resource-meta">
+                                <div class="resource-duration">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                    ${resource.duration}
+                                </div>
+                                <div class="resource-actions">
+                                    <button class="action-button read" data-action="open" data-id="${resource.id}">
+                                        ${resource.type === 'article' ? 'Leer' : 'Ver'}
+                                    </button>
+                                    <button class="action-button ${savedResources.includes(resource.id) ? 'active' : ''}" data-action="save" data-id="${resource.id}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="${savedResources.includes(resource.id) ? 'currentColor' : 'none'}" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+                                        </svg>
+                                    </button>
+                                    <button class="action-button" data-action="like" data-id="${resource.id}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            // Initial render
+            renderResources(resources, resourcesContainer);
+
+            // Simulated recommended resources (in a real app, this would be based on user preferences)
+            const recommendedResources = resources.slice(0, 3);
+            renderResources(recommendedResources, recommendedResourcesContainer);
+
+            // Mobile menu toggle
+            menuButton.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Category filter
+            let activeCategory = null;
+            categories.forEach(category => {
+                category.addEventListener('click', () => {
+                    const selectedCategory = category.dataset.category;
+                    if (activeCategory === selectedCategory) {
+                        // Deselect the category
+                        category.classList.remove('active');
+                        activeCategory = null;
+                        renderResources(resources, resourcesContainer);
+                    } else {
+                        // Select the new category
+                        categories.forEach(c => c.classList.remove('active'));
+                        category.classList.add('active');
+                        activeCategory = selectedCategory;
+                        const filteredResources = resources.filter(resource => resource.category === selectedCategory);
+                        renderResources(filteredResources, resourcesContainer);
+                    }
+                });
+            });
+
+            // Search functionality
+            searchBar.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredResources = resources.filter(resource => 
+                    resource.title.toLowerCase().includes(searchTerm) || 
+                    resource.description.toLowerCase().includes(searchTerm) ||
+                    resource.category.toLowerCase().includes(searchTerm)
+                );
+                renderResources(filteredResources, resourcesContainer);
+            });
+
+            // Show toast message
+            function showToast(message) {
+                toast.textContent = message;
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+
+            // Action buttons functionality (Open, Save, and Like)
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('action-button') || e.target.closest('.action-button')) {
+                    const button = e.target.classList.contains('action-button') ? e.target : e.target.closest('.action-button');
+                    const action = button.dataset.action;
+                    const resourceId = parseInt(button.dataset.id);
+                    const resource = resources.find(r => r.id === resourceId);
+                    
+                    if (action === 'open' && resource) {
+                        modalContent.innerHTML = `
+                            <h2>${resource.title}</h2>
+                            <p>${resource.duration}</p>
+                            ${resource.content}
+                        `;
+                        modal.style.display = "block";
+                    } else if (action === 'save') {
+                        button.classList.toggle('active');
+                        const icon = button.querySelector('svg');
+                        if (button.classList.contains('active')) {
+                            icon.setAttribute('fill', 'currentColor');
+                            savedResources.push(resourceId);
+                            showToast('Recurso guardado exitosamente');
+                        } else {
+                            icon.setAttribute('fill', 'none');
+                            savedResources = savedResources.filter(id => id !== resourceId);
+                            showToast('Recurso removido de guardados');
+                        }
+                    } else if (action === 'like') {
+                        button.classList.toggle('active');
+                        const icon = button.querySelector('svg');
+                        icon.style.fill = button.classList.contains('active') ? 'currentColor' : 'none';
+                        showToast(button.classList.contains('active') ? 'Recurso marcado como me gusta' : 'Me gusta removido');
+                    }
+                }
+            });
+
+            // Close modal and stop video playback
+            function closeModalAndStopVideo() {
+                const iframe = modalContent.querySelector('iframe');
+                if (iframe) {
+                    const iframeSrc = iframe.src;
+                    iframe.src = iframeSrc;
+                }
+                modal.style.display = "none";
+            }
+
+            closeModal.onclick = closeModalAndStopVideo;
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    closeModalAndStopVideo();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
