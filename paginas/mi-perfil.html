@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Perfil - Equilibrio Mental</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <link rel="icon" href="../img/logo.png" type="image/x-icon">
     <style>
         :root {
             --primary-color: #4A90E2;
@@ -61,7 +60,7 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1rem;
         }
 
         .nav-links a {
@@ -69,12 +68,13 @@
             text-decoration: none;
             transition: all 0.3s ease;
             padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin: 0.3rem;
         }
 
         .nav-links a:hover, .nav-links a.active {
             color: var(--white);
             background-color: var(--primary-color);
-            border-radius: 4px;
         }
 
         .profile-link {
@@ -84,10 +84,14 @@
             display: flex;
             align-items: center;
             transition: transform 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
         }
 
         .profile-link:hover {
             transform: translateY(-2px);
+            background-color: var(--primary-color);
+            color: var(--white);
         }
 
         .profile-link svg {
@@ -155,10 +159,13 @@
             background-color: var(--primary-color);
             color: var(--white);
             border: none;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 1rem;
         }
 
         .edit-profile-btn:hover {
@@ -216,6 +223,9 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
         }
 
         button:hover {
@@ -232,6 +242,10 @@
             border-radius: 4px;
             padding: 1rem;
             margin-bottom: 1rem;
+        }
+
+        .appointment-item button, .test-item button, .resource-item button {
+            margin-top: 0.5rem;
         }
 
         .switch {
@@ -299,6 +313,7 @@
             width: 80%;
             max-width: 500px;
             border-radius: 8px;
+            position: relative;
         }
 
         .close {
@@ -395,9 +410,8 @@
                 <img src="https://drive.google.com/thumbnail?id=11UbPyiyluKKnnCUEc2F33wUKkD7z1WeM" alt="Foto de perfil" class="profile-picture" id="profile-picture">
                 <div class="profile-info">
                     <h2 class="profile-name" id="profile-name">Juan Pérez</h2>
-                    <p class="profile-email" id="profile-email">juan.perez@email.com</p>
-                    <a href="editar-perfil.html"><button class="edit-profile-btn" id="edit-profile-btn">Editar Perfil</button></a>
-                   
+                    <p class="profile-email" id="profile-email">juan.perez@example.com</p>
+                    <button class="edit-profile-btn" id="edit-profile-btn">Editar Perfil</button>
                 </div>
             </div>
 
@@ -447,7 +461,6 @@
                 </div>
                 <div class="form-group">
                     <label class="switch">
-                
                         <input type="checkbox" id="resource-notifications">
                         <span class="slider"></span>
                     </label>
@@ -496,7 +509,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2023 Equilibrio Mental. Todos los derechos reservados.</p>
+            <p>&copy; 2024 Equilibrio Mental. Todos los derechos reservados.</p>
             <div>
                 <a href="privacidad.html">Política de Privacidad</a> |
                 <a href="terminos.html">Términos de Servicio</a> |
